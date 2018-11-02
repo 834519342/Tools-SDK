@@ -23,12 +23,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.arr = @[@"TJVersion",@"TJCrash",@"TJAlert",@"TJNSString",@"TJToolTip"];
+    self.arr = @[@"TJVersion",@"TJCrash",@"TJAlert",@"TJNSString",@"TJToolTip",@"iOS9Push"];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
+    //崩溃信息
+    [[TJCrash sharedCrash] sendCrashInfoToEMail];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -90,6 +92,19 @@
                 NSLog(@"%@",message);
             }];
         }
+    }
+    if (indexPath.row == 5) {
+        TJNotificationModel *model = [[TJNotificationModel alloc] init];
+        model.title = @"iOS9Push_title";
+        model.body = @"iOS9Push_body";
+        model.userInfo = @{@"push":@"iOS9Push"};
+        model.hour = 18;
+        model.minute = 45;
+        model.second = 0;
+        model.calendarUnit = NSCalendarUnitDay;
+        [TJLocalPush pushLocalNotificationWithModel:model ResultInfo:^(BOOL result, UILocalNotification * _Nonnull localNotification) {
+            NSLog(@"iOS9Push:%i",result);
+        }];
     }
     
 }

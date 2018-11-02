@@ -170,7 +170,7 @@
         UIView *yuanjiaoView = [UIView new];
         yuanjiaoView.frame = self.contentView.bounds;
         yuanjiaoView.userInteractionEnabled = NO;
-        yuanjiaoView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8];
+        yuanjiaoView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
         yuanjiaoView.layer.cornerRadius = 8.f;
         yuanjiaoView.layer.masksToBounds = YES; //圆角切割
 //        yuanjiaoView.layer.borderColor = [[UIColor grayColor] colorWithAlphaComponent:0.5].CGColor;
@@ -185,7 +185,7 @@
         frame.size.height = frame.size.height - 20;
         textLabel.frame = frame;
         textLabel.backgroundColor = [UIColor clearColor];
-        textLabel.textColor = [UIColor whiteColor];
+        textLabel.textColor = [UIColor blackColor];
         textLabel.textAlignment = NSTextAlignmentLeft;
         textLabel.font = [UIFont boldSystemFontOfSize:14.f];
         textLabel.text = self.message;
