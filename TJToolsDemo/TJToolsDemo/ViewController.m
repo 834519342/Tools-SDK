@@ -95,16 +95,29 @@
     }
     if (indexPath.row == 5) {
         TJNotificationModel *model = [[TJNotificationModel alloc] init];
-        model.title = @"iOS9Push_title";
-        model.body = @"iOS9Push_body";
-        model.userInfo = @{@"push":@"iOS9Push"};
+        model.title = @"iOS10Push_title";
+        model.body = @"iOS10Push_body";
+        model.userInfo = @{@"push":@"iOS10Push"};
         model.hour = 18;
         model.minute = 45;
-        model.second = 0;
-        model.calendarUnit = NSCalendarUnitDay;
-        [TJLocalPush pushLocalNotificationWithModel:model ResultInfo:^(BOOL result, UILocalNotification * _Nonnull localNotification) {
-            NSLog(@"iOS9Push:%i",result);
-        }];
+        model.second = 10;
+//        model.calendarUnit = NSCalendarUnitDay;
+        
+        if (@available(iOS 10.0, *)) {
+            [TJLocalPush addLocalPushWithModel:model PushModel:^(TJNotificationModel * _Nonnull pushModel) {
+                if (pushModel) {
+                    [TJLocalPush removeLocalPushWithCategoryId:pushModel.categoryIdentifier withCompletionHandler:^(NSError * _Nonnull error) {
+                        NSLog(@"%@",error);
+                    }];
+                }
+            } withCompletionHandler:^(NSError * _Nonnull error) {
+                NSLog(@"iOS10Push:error = %@",error);
+            }];
+        } else {
+//        [TJLocalPush pushLocalNotificationWithModel:model ResultInfo:^(BOOL result, UILocalNotification * _Nonnull localNotification) {
+//            NSLog(@"iOS9Push:%i",result);
+//        }];
+        }
     }
     
 }

@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import <TJTools/TJTools.h>
-#import <UserNotifications/UserNotifications.h>
 
 @interface AppDelegate ()<UNUserNotificationCenterDelegate>
 
@@ -20,9 +19,15 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [TJLocalPush registLocalNotificationResult:^(BOOL result, NSError * _Nonnull error) {
-        NSLog(@"[iOS9]result:%i",result);
-    }];
+    if (@available(iOS 10.0, *)) {
+        [TJLocalPush registLocalNotificationWithDelegate:self withCompletionHandler:^(BOOL granted, NSError * _Nonnull error) {
+            NSLog(@"iOS10:granted:%i error:%@",granted,error);
+        }];
+    } else {
+//        [TJLocalPush registLocalNotificationResult:^(BOOL result, NSError * _Nonnull error) {
+//            NSLog(@"[iOS9]result:%i",result);
+//        }];
+    }
     return YES;
 }
 
@@ -37,12 +42,16 @@
     [TJLocalPush removeLocalNotification:notification];
 }
 
-- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler API_AVAILABLE(ios(10.0))
 {
     NSLog(@"iOS10前台推送");
+    
+    completionHandler(UNNotificationPresentationOptionBadge |
+                      UNNotificationPresentationOptionSound |
+                      UNNotificationPresentationOptionAlert);
 }
 
-- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler API_AVAILABLE(ios(10.0))
 {
     completionHandler();
     NSLog(@"iOS10后台推送");
