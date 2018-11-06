@@ -16,6 +16,16 @@ typedef void(^ClickToolTipBlock)(NSString *message);
 @interface TJToolTip : NSObject
 
 /**
+ 显示加载器
+ */
++ (void)showActivity;
+
+/**
+ 关闭加载器
+ */
++ (void)hideActivity;
+
+/**
  居中提示
 
  @param message 提示内容

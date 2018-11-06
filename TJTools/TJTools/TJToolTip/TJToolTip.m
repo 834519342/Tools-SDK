@@ -15,6 +15,10 @@
 
 @interface TJToolTip ()
 
+//菊花
+@property (nonatomic, strong) UIActivityIndicatorView *activityView;
+@property (nonatomic, strong) UIView *activityBackView;
+
 //提示内容
 @property (nonatomic, copy) NSString *message;
 
@@ -31,7 +35,57 @@
 
 @implementation TJToolTip
 
-//显示居中提示
++ (instancetype)sharedToolTip
+{
+    static TJToolTip *toolTip = nil;
+    if (toolTip == nil) {
+        toolTip = [[TJToolTip alloc] init];
+    }
+    return toolTip;
+}
+
+#pragma mark 显示加载器
++ (void)showActivity
+{
+    [[UIApplication sharedApplication].keyWindow addSubview:[TJToolTip sharedToolTip].activityBackView];
+}
+
++ (void)hideActivity
+{
+    [[TJToolTip sharedToolTip].activityBackView removeFromSuperview];
+    [TJToolTip sharedToolTip].activityView = nil;
+    [TJToolTip sharedToolTip].activityBackView = nil;
+}
+
+//初始化
+- (UIView *)activityBackView
+{
+    if (_activityBackView == nil) {
+        _activityBackView = [[UIView alloc] initWithFrame:[UIApplication sharedApplication].keyWindow.bounds];
+        _activityBackView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1];
+        
+        [TJToolTip sharedToolTip].activityView.center = _activityBackView.center;
+        [_activityBackView addSubview:[TJToolTip sharedToolTip].activityView];
+        [[TJToolTip sharedToolTip].activityView startAnimating];
+    }
+    return _activityBackView;
+}
+
+- (UIActivityIndicatorView *)activityView
+{
+    if (_activityView == nil) {
+        _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        _activityView.frame = CGRectMake(0, 0, 80, 80);
+        _activityView.color = [UIColor whiteColor];
+        _activityView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+        _activityView.hidesWhenStopped = NO;
+        _activityView.layer.cornerRadius = 8.f;
+    }
+    return _activityView;
+}
+
+
+#pragma mark 显示居中提示
 + (void)showToolTipOnCenterWithMessage:(NSString *)message duration:(CGFloat)duration clickToolTipBlock:(ClickToolTipBlock)block
 {
     TJToolTip *toolTip = [[TJToolTip alloc] initShowCenterWithMessage:message duration:duration];
@@ -135,7 +189,7 @@
     [self hideAnimationSetAlpha];
 }
 
-//显示顶端提示
+#pragma mark 显示顶端提示
 + (void)showToolTipOnTopWithMessage:(NSString *)message duration:(CGFloat)duration clickToolTipBlock:(ClickToolTipBlock)block
 {
     TJToolTip *toolTip = [[TJToolTip alloc] initShowTopWithMessage:message duration:duration];
