@@ -80,4 +80,50 @@
     return outputString;
 }
 
++ (NSString *)getCurrentTimesWithFormatter:(NSString *)formatterStr
+{
+    //时间格式
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    if (formatterStr) {
+        [formatter setDateFormat:formatterStr];
+    }else {
+        [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    }
+    NSDate *datenow = [NSDate date];
+    NSString *currentTimeString = [formatter stringFromDate:datenow];
+    NSLog(@"现在时间:%@",currentTimeString);
+    return currentTimeString;
+}
+
++ (NSString *)getNowTimeTimestampWithFormatter:(NSString *)formatterStr
+{
+    //时间格式
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    if (formatterStr) {
+        //自定义格式
+        [formatter setDateFormat:formatterStr];
+    }else {
+        //设置日期系统格式
+        [formatter setDateStyle:NSDateFormatterMediumStyle];
+        //设置时间系统格式
+        [formatter setTimeStyle:NSDateFormatterShortStyle];
+    }
+    //设置已知时区
+//    NSLog(@"%@",[NSTimeZone knownTimeZoneNames]); //打印所有已知时区
+//    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"Pacific/Pago_Pago"];
+    //设置本地时区
+    NSTimeZone *timeZone = [NSTimeZone localTimeZone];
+    [formatter setTimeZone:timeZone];
+    
+    NSDate *dateNow = [NSDate date];
+    NSString *timeSp = [NSString stringWithFormat:@"%ld",(long)[dateNow timeIntervalSince1970]];
+    NSLog(@"现在时间戳:%@",timeSp);
+//    NSLog(@"现在时间戳:%ld",time(NULL));
+    
+    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[dateNow timeIntervalSince1970]];
+    NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
+    NSLog(@"时间戳转时间:%@",confromTimespStr);
+    return timeSp;
+}
+
 @end

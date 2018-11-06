@@ -76,11 +76,14 @@
         }
     }
     if (indexPath.row == 3) {
-        NSString *abc = @"wo shi yuan chuan";
+        NSString *abc = @"woshiyuanchuan";
         NSString *abc1 = [abc convertStringToHexStr];
-        NSLog(@"%@,convertStringToHexStr:%@",abc,abc1);
-        NSLog(@"%@,convertHexStrToString:%@",abc1,[abc1 convertHexStrToString]);
+        NSLog(@"%@,字符串转十六进制:%@",abc,abc1);
+        NSLog(@"%@,十六进制转字符串:%@",abc1,[abc1 convertHexStrToString]);
         NSLog(@"%@,MD5:%@",abc,[abc MD5]);
+        
+        [NSString getCurrentTimesWithFormatter:nil];
+        [NSString getNowTimeTimestampWithFormatter:nil];
     }
     if (indexPath.row == 4) {
         if (rand()%2) {
@@ -98,29 +101,22 @@
         model.title = @"iOS10Push_title";
         model.body = @"iOS10Push_body";
         model.userInfo = @{@"push":@"iOS10Push"};
-        model.hour = 18;
-        model.minute = 45;
-        model.second = 10;
-//        model.calendarUnit = NSCalendarUnitDay;
+        //解析当前时间
+        NSArray *arr = [[NSString getCurrentTimesWithFormatter:@"HH:mm:ss"] componentsSeparatedByString:@":"];
+        model.hour = [arr[0] intValue];
+        model.minute = [arr[1] intValue];
+        model.second = [arr[2] intValue] + 10;
         
         if (@available(iOS 10.0, *)) {
             [TJLocalPush addLocalPushWithModel:model PushModel:^(TJNotificationModel * _Nonnull pushModel) {
-                if (pushModel) {
-                    [TJLocalPush removeLocalPushWithCategoryId:pushModel.categoryIdentifier withCompletionHandler:^(NSError * _Nonnull error) {
-                        NSLog(@"%@",error);
-                    }];
-                }
+                
             } withCompletionHandler:^(NSError * _Nonnull error) {
                 NSLog(@"iOS10Push:error = %@",error);
             }];
         } else {
-//        [TJLocalPush pushLocalNotificationWithModel:model ResultInfo:^(BOOL result, UILocalNotification * _Nonnull localNotification) {
-//            NSLog(@"iOS9Push:%i",result);
-//        }];
         }
     }
     
 }
-
 
 @end

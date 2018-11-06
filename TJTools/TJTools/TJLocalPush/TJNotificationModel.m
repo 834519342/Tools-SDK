@@ -26,8 +26,11 @@
         self.sound = nil;
         self.badge = 1;
         self.userInfo = nil;
-        self.attachments = nil;
-//        self.calendarUnit = NSCalendarUnitYear;
+        if (@available(iOS 10.0, *)) {
+            self.attachments = nil;
+        } else {
+            // Fallback on earlier versions
+        }
     }
     return self;
 }

@@ -86,7 +86,7 @@
         pushModel.categoryIdentifier = content.categoryIdentifier;
     }
     //延迟推送,repeats:是否重复
-    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:content.categoryIdentifier content:content trigger:[TJLocalPush defaultCalendarNotificationTrigger]];
+    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:content.categoryIdentifier content:content trigger:[TJLocalPush getCalendarTriggerWith:pushModel]];
     //如果是更新先移除
     if (pushModel.type == TJPushMessageTypeUpdate) {
         [[TJLocalPush pushCenter] removeDeliveredNotificationsWithIdentifiers:@[content.categoryIdentifier]];
@@ -128,119 +128,37 @@
     }];
 }
 
-//默认的延时推送触发时机
-+ (UNTimeIntervalNotificationTrigger *)defaultTimeIntervalNotificationTrigger API_AVAILABLE(ios(10.0))
+//延时推送
++ (UNTimeIntervalNotificationTrigger *)getTimeIntervalTriggerWith:(TJNotificationModel *)pushModel API_AVAILABLE(ios(10.0))
 {
+    if(pushModel)
+    {
+        return [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:pushModel.second repeats:NO];
+    }
     return [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:10 repeats:NO];
 }
 
-//日历推送时间
-+ (UNCalendarNotificationTrigger *)defaultCalendarNotificationTrigger API_AVAILABLE(ios(10.0))
+//日历推送
++ (UNCalendarNotificationTrigger *)getCalendarTriggerWith:(TJNotificationModel *)pushModel API_AVAILABLE(ios(10.0))
 {
-    NSDateComponents *dateCompents = [NSDateComponents new];
-    dateCompents.hour = 18;
-    dateCompents.minute = 57;
-    return [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:dateCompents repeats:YES];
+    if(pushModel)
+    {
+        NSDateComponents *dateCompents = [NSDateComponents new];
+        dateCompents.hour = pushModel.hour;
+        dateCompents.minute = pushModel.minute;
+        dateCompents.second = pushModel.second;
+        return [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:dateCompents repeats:YES];
+    }
+    return nil;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-#pragma mark iOS10以下推送
-//注册通知
-+ (BOOL)registLocalNotificationResult:(void(^)(BOOL result, NSError *error))resultBlock
++ (void)getNotificationSettingsWithCompletionHandler:(void(^)(UNNotificationSettings *settings))completionHandler
 {
-    //判断是否已授权通知功能
-    if ([UIApplication sharedApplication].currentUserNotificationSettings.types == UIUserNotificationTypeNone) {
-        UIUserNotificationType type = (UIUserNotificationTypeAlert |
-                                       UIUserNotificationTypeBadge |
-                                       UIUserNotificationTypeSound);
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:type categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-        if (resultBlock) {
-            resultBlock(YES,nil);
+    [[TJLocalPush pushCenter] getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+        if (completionHandler) {
+            completionHandler(settings);
         }
-        return YES;
-    }
-    if (resultBlock) {
-        resultBlock(NO,nil);
-    }
-    return NO;
-}
-
-//添加通知
-+ (void)pushLocalNotificationWithModel:(TJNotificationModel *)model ResultInfo:(void(^)(BOOL result,UILocalNotification *localNotification))resultBlock
-{
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
-    if (notification) {
-        // 使用本地时区
-        notification.timeZone = [NSTimeZone defaultTimeZone];
-        //日历
-//        NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
-        //定时通知
-//        NSDateComponents *dateComponents = [calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:[NSDate date]];
-//        dateComponents.hour = model.hour;
-//        dateComponents.minute = model.minute;
-//        dateComponents.minute = model.second;
-//        NSDate *fireDate = [calendar dateFromComponents:dateComponents];
-        notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:model.second];
-        //重复提示间隔
-        notification.repeatInterval = model.calendarUnit;
-        //通知标题
-        notification.alertTitle = model.title;
-        //通知内容
-        notification.alertBody = model.body;
-        //通知角标
-        notification.applicationIconBadgeNumber += model.badge;
-        //锁屏界面滑动提示
-        notification.alertAction = @"打开应用";
-        //点击通知打开应用启动图
-        if (model.launchImageName) {
-            notification.alertLaunchImage = model.launchImageName;
-        }
-        //通知声音
-        if (model.sound) {
-            notification.soundName = model.sound;
-        }else {
-            notification.soundName = UILocalNotificationDefaultSoundName;
-        }
-        //通知附加信息
-        if (model.userInfo) {
-            notification.userInfo = model.userInfo;
-        }
-        //添加通知
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-        if (resultBlock) {
-            resultBlock(YES,notification);
-        }
-    }else {
-        resultBlock(NO,nil);
-    }
-}
-
-//移除指定通知
-+ (void)removeLocalNotification:(UILocalNotification *)notification
-{
-    if (notification) {
-        [[UIApplication sharedApplication] cancelLocalNotification:notification];
-        notification = nil;
-    }
-}
-
-//移除所有通知
-+ (void)removeAllLocalNotification
-{
-    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    }];
 }
 
 @end

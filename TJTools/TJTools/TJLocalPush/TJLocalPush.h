@@ -49,43 +49,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)removeLocalPushWithCategoryId:(NSString *)categoryIdentifier withCompletionHandler:(void(^)(NSError *error))completionHandler API_AVAILABLE(ios(10.0));
 
-
-
-
-
-
-
-
-
-
-#pragma mark iOS10以下推送 测试无效
 /**
- 注册通知
+ 获取当前推送对象属性设置,只读,不能更改
 
- @param resultBlock 注册结果
- @return 注册错误
+ @param completionHandler 回调
  */
-+ (BOOL)registLocalNotificationResult:(void(^)(BOOL result, NSError *error))resultBlock;
-
-/**
- 添加本地通知
-
- @param model 通知内容
- @param resultBlock 添加结果
- */
-+ (void)pushLocalNotificationWithModel:(TJNotificationModel *)model ResultInfo:(void(^)(BOOL result,UILocalNotification *localNotification))resultBlock API_AVAILABLE(ios(8.2));
-
-/**
- 移除指定通知
-
- @param notification 通知对象
- */
-+ (void)removeLocalNotification:(UILocalNotification *)notification;
-
-/**
- 移除所有通知
- */
-+ (void)removeAllLocalNotification;
++ (void)getNotificationSettingsWithCompletionHandler:(void(^)(UNNotificationSettings *settings))completionHandler API_AVAILABLE(ios(10.0));
 
 @end
 
