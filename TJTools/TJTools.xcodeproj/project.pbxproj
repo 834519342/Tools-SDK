@@ -26,6 +26,8 @@
 		30AB3C0F21886C05006E0B80 /* TJVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 30AB3C0921886C05006E0B80 /* TJVersion.m */; };
 		30AB3C1021886C05006E0B80 /* TJVersionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 30AB3C0A21886C05006E0B80 /* TJVersionRequest.h */; };
 		30AB3C1121886C05006E0B80 /* TJVersionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 30AB3C0B21886C05006E0B80 /* TJVersionRequest.m */; };
+		30AD36EB219183C80037DF49 /* TJAppleZF.h in Headers */ = {isa = PBXBuildFile; fileRef = 30AD36E9219183C80037DF49 /* TJAppleZF.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		30AD36EC219183C80037DF49 /* TJAppleZF.m in Sources */ = {isa = PBXBuildFile; fileRef = 30AD36EA219183C80037DF49 /* TJAppleZF.m */; };
 		30D34816218AF28C00705FCC /* TJToolTip.h in Headers */ = {isa = PBXBuildFile; fileRef = 30D34814218AF28C00705FCC /* TJToolTip.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30D34817218AF28C00705FCC /* TJToolTip.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D34815218AF28C00705FCC /* TJToolTip.m */; };
 /* End PBXBuildFile section */
@@ -52,6 +54,8 @@
 		30AB3C0921886C05006E0B80 /* TJVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJVersion.m; sourceTree = "<group>"; };
 		30AB3C0A21886C05006E0B80 /* TJVersionRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJVersionRequest.h; sourceTree = "<group>"; };
 		30AB3C0B21886C05006E0B80 /* TJVersionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJVersionRequest.m; sourceTree = "<group>"; };
+		30AD36E9219183C80037DF49 /* TJAppleZF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJAppleZF.h; sourceTree = "<group>"; };
+		30AD36EA219183C80037DF49 /* TJAppleZF.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJAppleZF.m; sourceTree = "<group>"; };
 		30D34814218AF28C00705FCC /* TJToolTip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJToolTip.h; sourceTree = "<group>"; };
 		30D34815218AF28C00705FCC /* TJToolTip.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJToolTip.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -134,6 +138,7 @@
 		30AB3BB021885FF0006E0B80 /* TJTools */ = {
 			isa = PBXGroup;
 			children = (
+				30AD36E8219183AC0037DF49 /* TJApplePay */,
 				3035D621218C49F0005796EF /* TJLocalPush */,
 				30D34813218AF27500705FCC /* TJToolTip */,
 				305C2F5C218AAB5A0042CF8D /* TJNSString */,
@@ -160,6 +165,15 @@
 			path = TJVersion;
 			sourceTree = "<group>";
 		};
+		30AD36E8219183AC0037DF49 /* TJApplePay */ = {
+			isa = PBXGroup;
+			children = (
+				30AD36E9219183C80037DF49 /* TJAppleZF.h */,
+				30AD36EA219183C80037DF49 /* TJAppleZF.m */,
+			);
+			path = TJApplePay;
+			sourceTree = "<group>";
+		};
 		30D34813218AF27500705FCC /* TJToolTip */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +197,7 @@
 				3035D628218C4A1A005796EF /* TJNotificationModel.h in Headers */,
 				305C2F5A218AA36E0042CF8D /* TJAlert.h in Headers */,
 				30AB3C1021886C05006E0B80 /* TJVersionRequest.h in Headers */,
+				30AD36EB219183C80037DF49 /* TJAppleZF.h in Headers */,
 				305C2F55218AA02E0042CF8D /* TJCrash.h in Headers */,
 				30AB3C0C21886C05006E0B80 /* TJAppInfo.h in Headers */,
 				305C2F60218AAB990042CF8D /* PrefixHeader.pch in Headers */,
@@ -261,6 +276,7 @@
 				3035D629218C4A1A005796EF /* TJNotificationModel.m in Sources */,
 				3035D625218C4A0F005796EF /* TJLocalPush.m in Sources */,
 				305C2F5B218AA36E0042CF8D /* TJAlert.m in Sources */,
+				30AD36EC219183C80037DF49 /* TJAppleZF.m in Sources */,
 				30AB3C0D21886C05006E0B80 /* TJAppInfo.m in Sources */,
 				30AB3C1121886C05006E0B80 /* TJVersionRequest.m in Sources */,
 				30D34817218AF28C00705FCC /* TJToolTip.m in Sources */,

@@ -14,6 +14,7 @@
 #import "NSString+Ex.h"
 #import "TJLocalPush.h"
 #import "TJNotificationModel.h"
+#import "TJAppleZF.h"
 
 //! Project version number for TJTools.
 FOUNDATION_EXPORT double TJToolsVersionNumber;

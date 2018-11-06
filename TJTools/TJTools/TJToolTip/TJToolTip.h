@@ -16,6 +16,13 @@ typedef void(^ClickToolTipBlock)(NSString *message);
 @interface TJToolTip : NSObject
 
 /**
+ 单例
+
+ @return 管理者
+ */
++ (instancetype)sharedToolTip;
+
+/**
  显示加载器
  */
 + (void)showActivity;
