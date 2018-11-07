@@ -155,11 +155,10 @@
     }
     
     NSString *productIdentifier = transaction.payment.productIdentifier;
-    //购买凭证
-    NSString *receipt = [transaction.transactionReceipt base64Encoding];
     if ([productIdentifier length] > 0) {
-        NSData *receiptData = [receipt dataUsingEncoding:NSUTF8StringEncoding];
-        [self handleActionWithType:SIAPPurchSuccess data:receiptData];
+        //购买凭证
+        NSString *receipt = [transaction.transactionReceipt base64Encoding];
+        [self handleActionWithType:SIAPPurchSuccess data:receipt];
     }
     
     //移除支付队列
@@ -199,7 +198,7 @@
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
 
-- (void)handleActionWithType:(SIAPPurchType)type data:(NSData *)data{
+- (void)handleActionWithType:(SIAPPurchType)type data:(NSString *)data{
     NSString *resultStr;
     switch (type) {
         case SIAPPurchSuccess:
@@ -235,7 +234,7 @@
     
     if(self.appleBlock){
         if (data == nil) {
-            data = [[NSData alloc] init];
+            data = [[NSString alloc] init];
         }
         self.appleBlock(@{@"code":[NSString stringWithFormat:@"%d",type],@"message":resultStr,@"data":data});
     }
