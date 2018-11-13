@@ -98,22 +98,36 @@
     }
     if (indexPath.row == 5) {
         TJNotificationModel *model = [[TJNotificationModel alloc] init];
-        model.title = @"iOS10Push_title";
-        model.body = @"iOS10Push_body";
-        model.userInfo = @{@"push":@"iOS10Push"};
+        model.title = @"iOS10推送：上班打卡";
+        model.body = @"上班打卡";
+        model.userInfo = @{@"push":@"上班打卡"};
         //解析当前时间
-        NSArray *arr = [[NSString getCurrentTimesWithFormatter:@"HH:mm:ss"] componentsSeparatedByString:@":"];
-        model.hour = [arr[0] intValue];
-        model.minute = [arr[1] intValue];
-        model.second = [arr[2] intValue] + 10;
+//        NSArray *arr = [[NSString getCurrentTimesWithFormatter:@"HH:mm:ss"] componentsSeparatedByString:@":"];
+        model.hour = 9;
+        model.minute = 29;
+        model.second = 0;
+        
+        TJNotificationModel *model1 = [[TJNotificationModel alloc] init];
+        model1.title = @"iOS10推送：下班打卡";
+        model1.body = @"下班打卡";
+        model1.userInfo = @{@"push":@"下班打卡"};
+        
+        model1.hour = 18;
+        model1.minute = 59;
+        model1.second = 0;
         
         if (@available(iOS 10.0, *)) {
             [TJLocalPush addLocalPushWithModel:model PushModel:^(TJNotificationModel * _Nonnull pushModel) {
-                
+                NSLog(@"添加成功");
             } withCompletionHandler:^(NSError * _Nonnull error) {
                 NSLog(@"iOS10Push:error = %@",error);
             }];
-        } else {
+            
+            [TJLocalPush addLocalPushWithModel:model1 PushModel:^(TJNotificationModel * _Nonnull pushModel) {
+                NSLog(@"添加成功");
+            } withCompletionHandler:^(NSError * _Nonnull error) {
+                NSLog(@"iOS10Push:error = %@",error);
+            }];
         }
     }
     if (indexPath.row == 6) {
