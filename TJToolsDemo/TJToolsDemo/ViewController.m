@@ -106,6 +106,7 @@
         model.hour = 9;
         model.minute = 29;
         model.second = 0;
+        model.categoryIdentifier = @"shangbandaka";
         
         TJNotificationModel *model1 = [[TJNotificationModel alloc] init];
         model1.title = @"iOS10推送：下班打卡";
@@ -115,6 +116,7 @@
         model1.hour = 18;
         model1.minute = 59;
         model1.second = 0;
+        model.categoryIdentifier = @"xiabandaka";
         
         if (@available(iOS 10.0, *)) {
             [TJLocalPush addLocalPushWithModel:model PushModel:^(TJNotificationModel * _Nonnull pushModel) {
