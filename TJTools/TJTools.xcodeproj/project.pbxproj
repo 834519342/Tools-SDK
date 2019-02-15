@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3005FBC822165C780082BA50 /* TJAccess.h in Headers */ = {isa = PBXBuildFile; fileRef = 3005FBC622165C780082BA50 /* TJAccess.h */; };
+		3005FBC922165C780082BA50 /* TJAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 3005FBC722165C780082BA50 /* TJAccess.m */; };
 		3024D5F12190471200730D0C /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3024D5F02190471200730D0C /* UserNotifications.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		3035D624218C4A0F005796EF /* TJLocalPush.h in Headers */ = {isa = PBXBuildFile; fileRef = 3035D622218C4A0F005796EF /* TJLocalPush.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3035D625218C4A0F005796EF /* TJLocalPush.m in Sources */ = {isa = PBXBuildFile; fileRef = 3035D623218C4A0F005796EF /* TJLocalPush.m */; };
@@ -33,6 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3005FBC622165C780082BA50 /* TJAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJAccess.h; sourceTree = "<group>"; };
+		3005FBC722165C780082BA50 /* TJAccess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJAccess.m; sourceTree = "<group>"; };
 		3024D5F02190471200730D0C /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		3035D622218C4A0F005796EF /* TJLocalPush.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJLocalPush.h; sourceTree = "<group>"; };
 		3035D623218C4A0F005796EF /* TJLocalPush.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJLocalPush.m; sourceTree = "<group>"; };
@@ -72,6 +76,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3005FBC522165C350082BA50 /* TJAccessTool */ = {
+			isa = PBXGroup;
+			children = (
+				3005FBC622165C780082BA50 /* TJAccess.h */,
+				3005FBC722165C780082BA50 /* TJAccess.m */,
+			);
+			path = TJAccessTool;
+			sourceTree = "<group>";
+		};
 		3024D5EF2190471200730D0C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +151,7 @@
 		30AB3BB021885FF0006E0B80 /* TJTools */ = {
 			isa = PBXGroup;
 			children = (
+				3005FBC522165C350082BA50 /* TJAccessTool */,
 				30AD36E8219183AC0037DF49 /* TJApplePay */,
 				3035D621218C49F0005796EF /* TJLocalPush */,
 				30D34813218AF27500705FCC /* TJToolTip */,
@@ -199,6 +213,7 @@
 				30AB3C1021886C05006E0B80 /* TJVersionRequest.h in Headers */,
 				30AD36EB219183C80037DF49 /* TJAppleZF.h in Headers */,
 				305C2F55218AA02E0042CF8D /* TJCrash.h in Headers */,
+				3005FBC822165C780082BA50 /* TJAccess.h in Headers */,
 				30AB3C0C21886C05006E0B80 /* TJAppInfo.h in Headers */,
 				305C2F60218AAB990042CF8D /* PrefixHeader.pch in Headers */,
 				30AB3BB321885FF0006E0B80 /* TJTools.h in Headers */,
@@ -275,6 +290,7 @@
 				30AB3C0F21886C05006E0B80 /* TJVersion.m in Sources */,
 				3035D629218C4A1A005796EF /* TJNotificationModel.m in Sources */,
 				3035D625218C4A0F005796EF /* TJLocalPush.m in Sources */,
+				3005FBC922165C780082BA50 /* TJAccess.m in Sources */,
 				305C2F5B218AA36E0042CF8D /* TJAlert.m in Sources */,
 				30AD36EC219183C80037DF49 /* TJAppleZF.m in Sources */,
 				30AB3C0D21886C05006E0B80 /* TJAppInfo.m in Sources */,
