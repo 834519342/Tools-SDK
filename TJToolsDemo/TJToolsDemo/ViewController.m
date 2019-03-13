@@ -84,8 +84,9 @@
         str1 = [str base64_encodeStr];
         NSLog(@"base64: str = %@, str1 = %@", [str1 base64_decodeStr], str1);
         
-        str1 = [str MD5];
-        NSLog(@"MD5: str = %@, str1 = %@",str, str1);
+        NSLog(@"MD5: str = %@, str1 = %@",str, [str MD5_Str]);
+        
+        NSLog(@"SHA1: str = %@, str1 = %@", str, [str SHA1_Str]);
         
         [NSString getCurrentTimesWithFormatter:nil];
         [NSString getNowTimeTimestampWithFormatter:nil];

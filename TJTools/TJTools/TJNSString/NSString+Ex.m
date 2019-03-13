@@ -42,13 +42,13 @@
 - (NSString *)convertStringToHexStr
 {
     if (!self || [self length] == 0) {
-        return @"";
+        return nil;
     }
-    NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *hex_data = [self dataUsingEncoding:NSUTF8StringEncoding];
     
-    NSMutableString *string = [[NSMutableString alloc] initWithCapacity:[data length]];
+    NSMutableString *string = [[NSMutableString alloc] initWithCapacity:[hex_data length]];
     
-    [data enumerateByteRangesUsingBlock:^(const void *bytes, NSRange byteRange, BOOL *stop) {
+    [hex_data enumerateByteRangesUsingBlock:^(const void *bytes, NSRange byteRange, BOOL *stop) {
         unsigned char *dataBytes = (unsigned char*)bytes;
         for (NSInteger i = 0; i < byteRange.length; i++) {
             NSString *hexStr = [NSString stringWithFormat:@"%x", (dataBytes[i]) & 0xff];
@@ -65,6 +65,10 @@
 
 - (NSString *)base64_encodeStr
 {
+    if (!self || [self length] == 0) {
+        return nil;
+    }
+    
     NSData *base64_data = [self dataUsingEncoding:NSUTF8StringEncoding];
     NSString *encodeStr = [base64_data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     return encodeStr;
@@ -72,26 +76,50 @@
 
 - (NSString *)base64_decodeStr
 {
+    if (!self || [self length] == 0) {
+        return nil;
+    }
+    
     NSData *base64_data = [[NSData alloc] initWithBase64EncodedString:self options:NSDataBase64DecodingIgnoreUnknownCharacters];
     NSString *decodeStr = [[NSString alloc] initWithData:base64_data encoding:NSUTF8StringEncoding];
     return decodeStr;
 }
 
-- (NSString *)MD5
+- (NSString *)MD5_Str
 {
     if(self == nil || [self length] == 0)
         return nil;
-    const char *value = [self UTF8String];
     
-    unsigned char outputBuffer[16];
+    const char *value = [self UTF8String];
+    unsigned char outputBuffer[CC_MD5_DIGEST_LENGTH];
     CC_MD5(value, (CC_LONG)strlen(value), outputBuffer);
     
     NSMutableString *outputString = [[NSMutableString alloc] initWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
-    for(NSInteger count = 0; count < 16; count++){
+    
+    for(NSInteger count = 0; count < CC_MD5_DIGEST_LENGTH; count++){
         [outputString appendFormat:@"%02x",outputBuffer[count]];
     }
-    
     return outputString;
+}
+
+- (NSString *)SHA1_Str
+{
+    if(self == nil || [self length] == 0)
+        return nil;
+    
+    const char *cstr = [self cStringUsingEncoding:NSUTF8StringEncoding];
+    NSData *SHA1_data = [NSData dataWithBytes:cstr length:self.length];
+    
+    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+    
+    CC_SHA1(SHA1_data.bytes, (uint32_t)SHA1_data.length, digest);
+    
+    NSMutableString *SHA1_str = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+    
+    for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++) {
+        [SHA1_str appendFormat:@"%02x", digest[i]];
+    }
+    return SHA1_str;
 }
 
 + (NSString *)getCurrentTimesWithFormatter:(NSString *)formatterStr
