@@ -13,6 +13,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CommonCrypto/CommonDigest.h>
+#import <CommonCrypto/CommonHMAC.h>
 
 @interface NSString (Ex)
 
@@ -55,6 +56,14 @@
  SHA即Secure Hash Algorithm（安全哈希算法），主要适用于数字签名标准（Digital Signature Standard DSS）里面定义的数字签名算法（Digital Signature Algorithm DSA）。对于长度小于2^64位的消息，SHA1会产生一个160位的消息摘要。
  */
 - (NSString *)SHA1_Str;
+
+/**
+ Hmac-SHA256 加密算法
+
+ @param hmac_key 加密key
+ @return 加密字符串
+ */
+- (NSString *)Hmac_SHA256_StrWithKey:(NSString *)hmac_key;
 
 /**
  获取当前时间

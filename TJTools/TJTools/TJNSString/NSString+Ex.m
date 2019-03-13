@@ -122,6 +122,24 @@
     return SHA1_str;
 }
 
+- (NSString *)Hmac_SHA256_StrWithKey:(NSString *)hmac_key
+{
+    NSData *hash_data = [self dataUsingEncoding:NSUTF8StringEncoding];
+    
+    unsigned char *digest;
+    digest = malloc(CC_SHA256_DIGEST_LENGTH);
+    const char *cKey = [hmac_key cStringUsingEncoding:NSUTF8StringEncoding];
+    
+    CCHmac(kCCHmacAlgSHA256, cKey, strlen(cKey), [hash_data bytes], [hash_data length], digest);
+//    NSData *data = [NSData dataWithBytes:digest length:CC_SHA256_DIGEST_LENGTH];
+
+    NSMutableString *hmac_str = [NSMutableString stringWithCapacity:CC_SHA256_DIGEST_LENGTH * 2];
+    for (int i = 0; i < CC_SHA256_DIGEST_LENGTH; i++) {
+        [hmac_str appendFormat:@"%02x", digest[i]];
+    }
+    return hmac_str;
+}
+
 + (NSString *)getCurrentTimesWithFormatter:(NSString *)formatterStr
 {
     //时间格式

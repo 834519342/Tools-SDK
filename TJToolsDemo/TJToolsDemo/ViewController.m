@@ -88,6 +88,8 @@
         
         NSLog(@"SHA1: str = %@, str1 = %@", str, [str SHA1_Str]);
         
+        NSLog(@"Hmac-SHA256: str = %@, str1 = %@", str, [str Hmac_SHA256_StrWithKey:str]);
+        
         [NSString getCurrentTimesWithFormatter:nil];
         [NSString getNowTimeTimestampWithFormatter:nil];
     }
