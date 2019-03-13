@@ -63,6 +63,20 @@
     return string;
 }
 
+- (NSString *)base64_encodeStr
+{
+    NSData *base64_data = [self dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *encodeStr = [base64_data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    return encodeStr;
+}
+
+- (NSString *)base64_decodeStr
+{
+    NSData *base64_data = [[NSData alloc] initWithBase64EncodedString:self options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    NSString *decodeStr = [[NSString alloc] initWithData:base64_data encoding:NSUTF8StringEncoding];
+    return decodeStr;
+}
+
 - (NSString *)MD5
 {
     if(self == nil || [self length] == 0)
@@ -123,6 +137,7 @@
     NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[dateNow timeIntervalSince1970]];
     NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
     NSLog(@"时间戳转时间:%@",confromTimespStr);
+    
     return timeSp;
 }
 

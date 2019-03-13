@@ -76,11 +76,16 @@
         }
     }
     if (indexPath.row == 3) {
-        NSString *abc = @"woshiyuanchuan";
-        NSString *abc1 = [abc convertStringToHexStr];
-        NSLog(@"%@,字符串转十六进制:%@",abc,abc1);
-        NSLog(@"%@,十六进制转字符串:%@",abc1,[abc1 convertHexStrToString]);
-        NSLog(@"%@,MD5:%@",abc,[abc MD5]);
+        NSString *str = @"woshiyuanchuan";
+        NSString *str1 = [str convertStringToHexStr];
+        
+        NSLog(@"十六进制字符串: str = %@, str1 = %@",[str1 convertHexStrToString], str1);
+        
+        str1 = [str base64_encodeStr];
+        NSLog(@"base64: str = %@, str1 = %@", [str1 base64_decodeStr], str1);
+        
+        str1 = [str MD5];
+        NSLog(@"MD5: str = %@, str1 = %@",str, str1);
         
         [NSString getCurrentTimesWithFormatter:nil];
         [NSString getNowTimeTimestampWithFormatter:nil];
