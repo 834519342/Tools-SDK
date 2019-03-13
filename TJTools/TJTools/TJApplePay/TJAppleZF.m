@@ -234,7 +234,7 @@
     
     if(self.appleBlock){
         if (data == nil) {
-            data = [[NSString alloc] init];
+            data = @"NULL";
         }
         self.appleBlock(@{@"code":[NSString stringWithFormat:@"%d",type],@"message":resultStr,@"data":data});
     }

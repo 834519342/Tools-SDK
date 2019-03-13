@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3005FBC822165C780082BA50 /* TJAccess.h in Headers */ = {isa = PBXBuildFile; fileRef = 3005FBC622165C780082BA50 /* TJAccess.h */; };
+		3005FBC822165C780082BA50 /* TJAccess.h in Headers */ = {isa = PBXBuildFile; fileRef = 3005FBC622165C780082BA50 /* TJAccess.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3005FBC922165C780082BA50 /* TJAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 3005FBC722165C780082BA50 /* TJAccess.m */; };
 		3024D5F12190471200730D0C /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3024D5F02190471200730D0C /* UserNotifications.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		3035D624218C4A0F005796EF /* TJLocalPush.h in Headers */ = {isa = PBXBuildFile; fileRef = 3035D622218C4A0F005796EF /* TJLocalPush.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -204,6 +204,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3005FBC822165C780082BA50 /* TJAccess.h in Headers */,
 				30D34816218AF28C00705FCC /* TJToolTip.h in Headers */,
 				30AB3C0E21886C05006E0B80 /* TJVersion.h in Headers */,
 				3035D624218C4A0F005796EF /* TJLocalPush.h in Headers */,
@@ -213,7 +214,6 @@
 				30AB3C1021886C05006E0B80 /* TJVersionRequest.h in Headers */,
 				30AD36EB219183C80037DF49 /* TJAppleZF.h in Headers */,
 				305C2F55218AA02E0042CF8D /* TJCrash.h in Headers */,
-				3005FBC822165C780082BA50 /* TJAccess.h in Headers */,
 				30AB3C0C21886C05006E0B80 /* TJAppInfo.h in Headers */,
 				305C2F60218AAB990042CF8D /* PrefixHeader.pch in Headers */,
 				30AB3BB321885FF0006E0B80 /* TJTools.h in Headers */,
