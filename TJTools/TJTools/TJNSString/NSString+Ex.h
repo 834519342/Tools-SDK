@@ -12,31 +12,29 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <CommonCrypto/CommonDigest.h>
-#import <CommonCrypto/CommonHMAC.h>
 
 @interface NSString (Ex)
 
 /**
  十六进制的字符串转换成NSString
  */
-- (NSString *)convertHexStrToString;
+- (NSString *)TJ_HexStrConvertToStr;
 
 /**
  NSString转换成十六进制的字符串
  */
-- (NSString *)convertStringToHexStr;
+- (NSString *)TJ_StrConvertToHexStr;
 
 /**
  base64 字符串编码
  Base64是网络上最常见的用于传输8Bit字节代码的编码方式之一。Base64编码可用于在HTTP环境下传递较长的标识信息。采用Base64编码具有不可读性，即所编码的数据不会被人用肉眼所直接看到。
  */
-- (NSString *)base64_encodeStr;
+- (NSString *)TJ_Base64_encode;
 
 /**
  base64 字符串解码
  */
-- (NSString *)base64_decodeStr;
+- (NSString *)TJ_Base64_decode;
 
 /**
  MD5 算法加密
@@ -48,14 +46,14 @@
  （3）抗修改性：对原数据进行任何改动，哪怕只修改1个字节，所得到的MD5值都有很大区别。
  （4）强抗碰撞：已知原数据和其MD5值，想找到一个具有相同MD5值的数据（即伪造数据）是非常困难的。
  */
-- (NSString *)MD5_Str;
+- (NSString *)TJ_MD5;
 
 /**
  SHA1 算法加密
 
  SHA即Secure Hash Algorithm（安全哈希算法），主要适用于数字签名标准（Digital Signature Standard DSS）里面定义的数字签名算法（Digital Signature Algorithm DSA）。对于长度小于2^64位的消息，SHA1会产生一个160位的消息摘要。
  */
-- (NSString *)SHA1_Str;
+- (NSString *)TJ_SHA1;
 
 /**
  Hmac-SHA256 加密算法
@@ -63,7 +61,23 @@
  @param hmac_key 加密key
  @return 加密字符串
  */
-- (NSString *)Hmac_SHA256_StrWithKey:(NSString *)hmac_key;
+- (NSString *)TJ_HmacSHA256_WithKey:(NSString *)HMAC_KEY;
+
+/**
+ AES256加密
+
+ @param AES_KEY 加密与解密的秘钥，需要与后台协商共同定义，保持与后台的秘钥相同
+ @return 加密串
+ */
+- (NSString *)TJ_AES256_EncryptWithKey:(NSString *)AES_KEY;
+
+/**
+ AES256解密
+
+ @param AES_KEY 加密与解密的秘钥，需要与后台协商共同定义，保持与后台的秘钥相同
+ @return 解密串
+ */
+- (NSString *)TJ_AES256_DecryptWithKey:(NSString *)AES_KEY;
 
 /**
  获取当前时间

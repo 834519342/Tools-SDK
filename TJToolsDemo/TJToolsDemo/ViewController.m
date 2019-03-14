@@ -77,18 +77,21 @@
     }
     if (indexPath.row == 3) {
         NSString *str = @"woshiyuanchuan";
-        NSString *str1 = [str convertStringToHexStr];
+        NSString *str1 = [str TJ_StrConvertToHexStr];
         
-        NSLog(@"十六进制字符串: str = %@, str1 = %@",[str1 convertHexStrToString], str1);
+        NSLog(@"十六进制字符串: str = %@, str1 = %@",[str1 TJ_HexStrConvertToStr], str1);
         
-        str1 = [str base64_encodeStr];
-        NSLog(@"base64: str = %@, str1 = %@", [str1 base64_decodeStr], str1);
+        str1 = [str TJ_Base64_encode];
+        NSLog(@"base64: str = %@, str1 = %@", [str1 TJ_Base64_decode], str1);
         
-        NSLog(@"MD5: str = %@, str1 = %@",str, [str MD5_Str]);
+        NSLog(@"MD5: str = %@, str1 = %@",str, [str TJ_MD5]);
         
-        NSLog(@"SHA1: str = %@, str1 = %@", str, [str SHA1_Str]);
+        NSLog(@"SHA1: str = %@, str1 = %@", str, [str TJ_SHA1]);
         
-        NSLog(@"Hmac-SHA256: str = %@, str1 = %@", str, [str Hmac_SHA256_StrWithKey:str]);
+        NSLog(@"Hmac-SHA256: str = %@, str1 = %@", str, [str TJ_HmacSHA256_WithKey:str]);
+        
+        str1 = [str TJ_AES256_EncryptWithKey:@"key"];
+        NSLog(@"AES256:str = %@, str1 = %@", [str1 TJ_AES256_DecryptWithKey:@"key"], str1);
         
         [NSString getCurrentTimesWithFormatter:nil];
         [NSString getNowTimeTimestampWithFormatter:nil];

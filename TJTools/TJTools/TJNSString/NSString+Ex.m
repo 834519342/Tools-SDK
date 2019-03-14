@@ -7,10 +7,13 @@
 //
 
 #import "NSString+Ex.h"
+#import <CommonCrypto/CommonCryptor.h>
+#import <CommonCrypto/CommonDigest.h>
+#import <CommonCrypto/CommonHMAC.h>
 
 @implementation NSString (Ex)
 
-- (NSString *)convertHexStrToString
+- (NSString *)TJ_HexStrConvertToStr
 {
     if (!self || [self length] == 0) {
         return nil;
@@ -39,7 +42,7 @@
     return string;
 }
 
-- (NSString *)convertStringToHexStr
+- (NSString *)TJ_StrConvertToHexStr
 {
     if (!self || [self length] == 0) {
         return nil;
@@ -63,7 +66,7 @@
     return string;
 }
 
-- (NSString *)base64_encodeStr
+- (NSString *)TJ_Base64_encode
 {
     if (!self || [self length] == 0) {
         return nil;
@@ -74,7 +77,7 @@
     return encodeStr;
 }
 
-- (NSString *)base64_decodeStr
+- (NSString *)TJ_Base64_decode
 {
     if (!self || [self length] == 0) {
         return nil;
@@ -85,7 +88,7 @@
     return decodeStr;
 }
 
-- (NSString *)MD5_Str
+- (NSString *)TJ_MD5
 {
     if(self == nil || [self length] == 0)
         return nil;
@@ -102,7 +105,7 @@
     return outputString;
 }
 
-- (NSString *)SHA1_Str
+- (NSString *)TJ_SHA1
 {
     if(self == nil || [self length] == 0)
         return nil;
@@ -122,13 +125,16 @@
     return SHA1_str;
 }
 
-- (NSString *)Hmac_SHA256_StrWithKey:(NSString *)hmac_key
+- (NSString *)TJ_HmacSHA256_WithKey:(NSString *)HMAC_KEY
 {
+    if(self == nil || [self length] == 0)
+        return nil;
+    
     NSData *hash_data = [self dataUsingEncoding:NSUTF8StringEncoding];
     
     unsigned char *digest;
     digest = malloc(CC_SHA256_DIGEST_LENGTH);
-    const char *cKey = [hmac_key cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *cKey = [HMAC_KEY cStringUsingEncoding:NSUTF8StringEncoding];
     
     CCHmac(kCCHmacAlgSHA256, cKey, strlen(cKey), [hash_data bytes], [hash_data length], digest);
 //    NSData *data = [NSData dataWithBytes:digest length:CC_SHA256_DIGEST_LENGTH];
@@ -137,7 +143,60 @@
     for (int i = 0; i < CC_SHA256_DIGEST_LENGTH; i++) {
         [hmac_str appendFormat:@"%02x", digest[i]];
     }
+    free(digest);
     return hmac_str;
+}
+
+- (NSString *)TJ_AES256_EncryptWithKey:(NSString *)AES_KEY
+{
+    if(self == nil || [self length] == 0)
+        return nil;
+    
+    char keyPtr[kCCKeySizeAES256 + 1];
+    bzero(keyPtr, sizeof(keyPtr));
+    [AES_KEY getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
+    
+    NSData *sourceData = [self dataUsingEncoding:NSUTF8StringEncoding];
+    NSUInteger dataLength = [sourceData length];
+    size_t bufferSize = dataLength + kCCBlockSizeAES128;
+    void *buffer = malloc(bufferSize);
+    size_t numBytesEncrypted = 0;
+    CCCryptorStatus status = CCCrypt(kCCEncrypt, kCCAlgorithmAES128, kCCOptionPKCS7Padding | kCCOptionECBMode, keyPtr, kCCBlockSizeAES128, NULL, [sourceData bytes], dataLength, buffer, bufferSize, &numBytesEncrypted);
+    
+    if (status == kCCSuccess) {
+        NSData *encryptData = [NSData dataWithBytesNoCopy:buffer length:numBytesEncrypted];
+        //base64编码
+        return [encryptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+    }else {
+        free(buffer);
+        return nil;
+    }
+}
+
+- (NSString *)TJ_AES256_DecryptWithKey:(NSString *)AES_KEY
+{
+    if(self == nil || [self length] == 0)
+        return nil;
+    
+    //base64解码
+    NSData *decodeData = [[NSData alloc] initWithBase64EncodedString:self options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    
+    char keyPtr[kCCKeySizeAES256 + 1];
+    bzero(keyPtr, sizeof(keyPtr));
+    [AES_KEY getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
+    
+    NSUInteger dataLength = [decodeData length];
+    size_t bufferSize = dataLength + kCCBlockSizeAES128;
+    void *buffer = malloc(bufferSize);
+    size_t numBytesDecrypted = 0;
+    CCCryptorStatus status = CCCrypt(kCCDecrypt, kCCAlgorithmAES128, kCCOptionPKCS7Padding | kCCOptionECBMode, keyPtr, kCCBlockSizeAES128, NULL, [decodeData bytes], dataLength, buffer, bufferSize, &numBytesDecrypted);
+    if (status == kCCSuccess) {
+        NSData *data = [NSData dataWithBytesNoCopy:buffer length:numBytesDecrypted];
+        return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    }else {
+        free(buffer);
+        return nil;
+    }
 }
 
 + (NSString *)getCurrentTimesWithFormatter:(NSString *)formatterStr
