@@ -32,6 +32,8 @@
 		30AD36EC219183C80037DF49 /* TJAppleZF.m in Sources */ = {isa = PBXBuildFile; fileRef = 30AD36EA219183C80037DF49 /* TJAppleZF.m */; };
 		30D34816218AF28C00705FCC /* TJToolTip.h in Headers */ = {isa = PBXBuildFile; fileRef = 30D34814218AF28C00705FCC /* TJToolTip.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30D34817218AF28C00705FCC /* TJToolTip.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D34815218AF28C00705FCC /* TJToolTip.m */; };
+		30E9C1D22241EB7A00CFDB1A /* TJ_RSA.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E9C1D02241EB7A00CFDB1A /* TJ_RSA.m */; };
+		30E9C1D32241EB7A00CFDB1A /* TJ_RSA.h in Headers */ = {isa = PBXBuildFile; fileRef = 30E9C1D12241EB7A00CFDB1A /* TJ_RSA.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +64,8 @@
 		30AD36EA219183C80037DF49 /* TJAppleZF.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJAppleZF.m; sourceTree = "<group>"; };
 		30D34814218AF28C00705FCC /* TJToolTip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJToolTip.h; sourceTree = "<group>"; };
 		30D34815218AF28C00705FCC /* TJToolTip.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJToolTip.m; sourceTree = "<group>"; };
+		30E9C1D02241EB7A00CFDB1A /* TJ_RSA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJ_RSA.m; sourceTree = "<group>"; };
+		30E9C1D12241EB7A00CFDB1A /* TJ_RSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJ_RSA.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +131,8 @@
 			children = (
 				305C2F61218AABBC0042CF8D /* NSString+Ex.h */,
 				305C2F62218AABBC0042CF8D /* NSString+Ex.m */,
+				30E9C1D12241EB7A00CFDB1A /* TJ_RSA.h */,
+				30E9C1D02241EB7A00CFDB1A /* TJ_RSA.m */,
 			);
 			path = TJNSString;
 			sourceTree = "<group>";
@@ -211,6 +217,7 @@
 				305C2F63218AABBC0042CF8D /* NSString+Ex.h in Headers */,
 				3035D628218C4A1A005796EF /* TJNotificationModel.h in Headers */,
 				305C2F5A218AA36E0042CF8D /* TJAlert.h in Headers */,
+				30E9C1D32241EB7A00CFDB1A /* TJ_RSA.h in Headers */,
 				30AB3C1021886C05006E0B80 /* TJVersionRequest.h in Headers */,
 				30AD36EB219183C80037DF49 /* TJAppleZF.h in Headers */,
 				305C2F55218AA02E0042CF8D /* TJCrash.h in Headers */,
@@ -289,6 +296,7 @@
 			files = (
 				30AB3C0F21886C05006E0B80 /* TJVersion.m in Sources */,
 				3035D629218C4A1A005796EF /* TJNotificationModel.m in Sources */,
+				30E9C1D22241EB7A00CFDB1A /* TJ_RSA.m in Sources */,
 				3035D625218C4A0F005796EF /* TJLocalPush.m in Sources */,
 				3005FBC922165C780082BA50 /* TJAccess.m in Sources */,
 				305C2F5B218AA36E0042CF8D /* TJAlert.m in Sources */,

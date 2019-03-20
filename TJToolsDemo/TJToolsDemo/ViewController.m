@@ -6,6 +6,9 @@
 //  Copyright © 2018年 TJ. All rights reserved.
 //
 
+#define public_Key @"-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDL0YM5bgvHTu/pJkFuV2AWjzGMQnBDs/TRcJEvgvBswNZFt7X2h56aD1tIDW8wS0z95NK5MZJ5hAN/m8K+75KY7gqoPZdFbWDcgq3fJYcJytIykW2CMwyE0a4qR3t5lDPRbUEbai9kQsikaeyi/xjlGB2p+uDO52o70T+bqYf1fwIDAQAB-----END PUBLIC KEY-----"
+#define private_Key @"-----BEGIN PRIVATE KEY-----MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAMvRgzluC8dO7+kmQW5XYBaPMYxCcEOz9NFwkS+C8GzA1kW3tfaHnpoPW0gNbzBLTP3k0rkxknmEA3+bwr7vkpjuCqg9l0VtYNyCrd8lhwnK0jKRbYIzDITRripHe3mUM9FtQRtqL2RCyKRp7KL/GOUYHan64M7najvRP5uph/V/AgMBAAECgYBllY7p2MdWFynL8p05+aKSm9v+JD7//3lNyeUS4RgjnBkvtlii/wU1k+HTD58TWvSMtrewRdzTY9C6kU+HCrDtVCLm5zdzDQplriX6/2V65IwzKE1Mm9QRy0uchjXFx3zaYC5xauH1p7xfmAKVqX8poZnXV1jFBXQ5ghxbQS91AQJBAOxLbpZYBDABlAZ+bXgDnP70LvmePJ8vQBbkTOjcnn4Maz8yVQlEmvVkuyJ9ureFujP0PBSwC1UmWGNm9HHzdRECQQDc0MHRpP9e35tOYukz36Mj92jRDN3NSpJLFEozZyXYX/BkSTKmPFp/+PO3JVEknRy3HeKiqa0Tim7SbqZbzIGPAkEAxfFarm8E8wIfcmEuar78IUeEom6/8cmvMn4FP3yw+H6GyOXs/lqORMshSH9yjpJjrWoHen0OwUHiAUMZuutrQQJAI0e7X+qT3q2tW7XT+rTFlQ6HkbcTjSRYAWTpghL96fdSKkPDsum7r+yvy9hLgaUUnHFK76Bahd+9WyPQsqQXIwJBAN1KPQhuvboAamMXuQcQwP7+lwVyUEqy/uzSgW+aYC6kFaCUaiz6H1R5Ybe7/Lk3Vr2Q1Rf7PjKbFUSCrEutXQg=-----END PRIVATE KEY-----"
+
 #import "ViewController.h"
 #import <TJTools/TJTools.h>
 
@@ -92,6 +95,9 @@
         
         str1 = [str TJ_AES256_EncryptWithKey:@"key"];
         NSLog(@"AES256:str = %@, str1 = %@", [str1 TJ_AES256_DecryptWithKey:@"key"], str1);
+        
+        str1 = [str TJ_RSAEncryptWithPublicKey:public_Key];
+        NSLog(@"RSA:str = %@\nstr1 = %@", [str1 TJ_RSADecryptWithPrivateKey:private_Key], str1);
         
         [NSString getCurrentTimesWithFormatter:nil];
         [NSString getNowTimeTimestampWithFormatter:nil];

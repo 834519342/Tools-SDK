@@ -11,6 +11,8 @@
 #import <CommonCrypto/CommonDigest.h>
 #import <CommonCrypto/CommonHMAC.h>
 
+#import "TJ_RSA.h"
+
 @implementation NSString (Ex)
 
 - (NSString *)TJ_HexStrConvertToStr
@@ -197,6 +199,16 @@
         free(buffer);
         return nil;
     }
+}
+
+- (NSString *)TJ_RSAEncryptWithPublicKey:(NSString *)publicKey
+{
+    return [[TJ_RSA new] RSA_EncryptString:self publickey:publicKey];
+}
+
+- (NSString *)TJ_RSADecryptWithPrivateKey:(NSString *)privateKey
+{
+    return [[TJ_RSA new] RSA_DecryptString:self privateKey:privateKey];
 }
 
 + (NSString *)getCurrentTimesWithFormatter:(NSString *)formatterStr

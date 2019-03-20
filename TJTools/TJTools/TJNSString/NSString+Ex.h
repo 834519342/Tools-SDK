@@ -58,7 +58,7 @@
 /**
  Hmac-SHA256 加密算法
 
- @param hmac_key 加密key
+ @param HMAC_KEY 加密key
  @return 加密字符串
  */
 - (NSString *)TJ_HmacSHA256_WithKey:(NSString *)HMAC_KEY;
@@ -78,6 +78,22 @@
  @return 解密串
  */
 - (NSString *)TJ_AES256_DecryptWithKey:(NSString *)AES_KEY;
+
+/**
+ RSA加密
+
+ @param publicKey 公钥
+ @return 已加密数据
+ */
+- (NSString *)TJ_RSAEncryptWithPublicKey:(NSString *)publicKey;
+
+/**
+ RSA解密
+
+ @param privateKey 私钥
+ @return 已解密数据
+ */
+- (NSString *)TJ_RSADecryptWithPrivateKey:(NSString *)privateKey;
 
 /**
  获取当前时间
