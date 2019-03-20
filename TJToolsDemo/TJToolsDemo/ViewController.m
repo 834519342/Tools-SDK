@@ -6,8 +6,8 @@
 //  Copyright © 2018年 TJ. All rights reserved.
 //
 
-#define public_Key @"-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDL0YM5bgvHTu/pJkFuV2AWjzGMQnBDs/TRcJEvgvBswNZFt7X2h56aD1tIDW8wS0z95NK5MZJ5hAN/m8K+75KY7gqoPZdFbWDcgq3fJYcJytIykW2CMwyE0a4qR3t5lDPRbUEbai9kQsikaeyi/xjlGB2p+uDO52o70T+bqYf1fwIDAQAB-----END PUBLIC KEY-----"
-#define private_Key @"-----BEGIN PRIVATE KEY-----MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAMvRgzluC8dO7+kmQW5XYBaPMYxCcEOz9NFwkS+C8GzA1kW3tfaHnpoPW0gNbzBLTP3k0rkxknmEA3+bwr7vkpjuCqg9l0VtYNyCrd8lhwnK0jKRbYIzDITRripHe3mUM9FtQRtqL2RCyKRp7KL/GOUYHan64M7najvRP5uph/V/AgMBAAECgYBllY7p2MdWFynL8p05+aKSm9v+JD7//3lNyeUS4RgjnBkvtlii/wU1k+HTD58TWvSMtrewRdzTY9C6kU+HCrDtVCLm5zdzDQplriX6/2V65IwzKE1Mm9QRy0uchjXFx3zaYC5xauH1p7xfmAKVqX8poZnXV1jFBXQ5ghxbQS91AQJBAOxLbpZYBDABlAZ+bXgDnP70LvmePJ8vQBbkTOjcnn4Maz8yVQlEmvVkuyJ9ureFujP0PBSwC1UmWGNm9HHzdRECQQDc0MHRpP9e35tOYukz36Mj92jRDN3NSpJLFEozZyXYX/BkSTKmPFp/+PO3JVEknRy3HeKiqa0Tim7SbqZbzIGPAkEAxfFarm8E8wIfcmEuar78IUeEom6/8cmvMn4FP3yw+H6GyOXs/lqORMshSH9yjpJjrWoHen0OwUHiAUMZuutrQQJAI0e7X+qT3q2tW7XT+rTFlQ6HkbcTjSRYAWTpghL96fdSKkPDsum7r+yvy9hLgaUUnHFK76Bahd+9WyPQsqQXIwJBAN1KPQhuvboAamMXuQcQwP7+lwVyUEqy/uzSgW+aYC6kFaCUaiz6H1R5Ybe7/Lk3Vr2Q1Rf7PjKbFUSCrEutXQg=-----END PRIVATE KEY-----"
+#define public_Key @"-----BEGIN PUBLIC KEY-----MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAL9TnR4/yVpJnYUGoHHTjaupCwqmplPD1unjG82ePAQu/5Ccs4IppJlB062x6X1YloisVhP3rBBFjSHZJDDmNhsCAwEAAQ==-----END PUBLIC KEY-----"
+#define private_Key @"-----BEGIN PRIVATE KEY-----MIIBVQIBADANBgkqhkiG9w0BAQEFAASCAT8wggE7AgEAAkEAv1OdHj/JWkmdhQagcdONq6kLCqamU8PW6eMbzZ48BC7/kJyzgimkmUHTrbHpfViWiKxWE/esEEWNIdkkMOY2GwIDAQABAkEAheEZaYhS+lXW3rXzYZMaaEtCibJxYt4ALeuYkfounvGZCdt0yyAbeixcidbNyLUKkYVIUhIJF/aHejDKtM1NGQIhAPN10PBgn/yimwvxGXQQ9ic1fAV/gQOslHIeYdi6/ICnAiEAyS5hruW8GxeD+0nTmCo5RlpldwpLFjdWNL0Mi2LX+W0CIQCDPAvvtzYmWYSYUFN3JDl78zGySQPDdkDirwvxZwH7WwIgBa9l20dqtWlItYU0kYw/6hkL3P1ReeM+cGcXP6kfaVECIDkTEdmhyfnL0k8W1Zc6kOwUO3QQ3TV+q3A/iYGNthsR-----END PRIVATE KEY-----"
 
 #import "ViewController.h"
 #import <TJTools/TJTools.h>
@@ -97,7 +97,7 @@
         NSLog(@"AES256:str = %@, str1 = %@", [str1 TJ_AES256_DecryptWithKey:@"key"], str1);
         
         str1 = [str TJ_RSAEncryptWithPublicKey:public_Key];
-        NSLog(@"RSA:str = %@\nstr1 = %@", [str1 TJ_RSADecryptWithPrivateKey:private_Key], str1);
+        NSLog(@"RSA:str = %@, str1 = %@", [str1 TJ_RSADecryptWithPrivateKey:private_Key], str1);
         
         [NSString getCurrentTimesWithFormatter:nil];
         [NSString getNowTimeTimestampWithFormatter:nil];

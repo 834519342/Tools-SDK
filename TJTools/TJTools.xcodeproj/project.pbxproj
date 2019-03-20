@@ -21,6 +21,8 @@
 		305C2F60218AAB990042CF8D /* PrefixHeader.pch in Headers */ = {isa = PBXBuildFile; fileRef = 305C2F5F218AAB990042CF8D /* PrefixHeader.pch */; };
 		305C2F63218AABBC0042CF8D /* NSString+Ex.h in Headers */ = {isa = PBXBuildFile; fileRef = 305C2F61218AABBC0042CF8D /* NSString+Ex.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		305C2F64218AABBC0042CF8D /* NSString+Ex.m in Sources */ = {isa = PBXBuildFile; fileRef = 305C2F62218AABBC0042CF8D /* NSString+Ex.m */; };
+		306EE00A224214B90035E1CD /* privateKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = 306EE008224214B90035E1CD /* privateKey.txt */; };
+		306EE00B224214B90035E1CD /* publicKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = 306EE009224214B90035E1CD /* publicKey.txt */; };
 		30AB3BB321885FF0006E0B80 /* TJTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 30AB3BB121885FF0006E0B80 /* TJTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30AB3C0C21886C05006E0B80 /* TJAppInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 30AB3C0621886C05006E0B80 /* TJAppInfo.h */; };
 		30AB3C0D21886C05006E0B80 /* TJAppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 30AB3C0721886C05006E0B80 /* TJAppInfo.m */; };
@@ -51,6 +53,8 @@
 		305C2F5F218AAB990042CF8D /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		305C2F61218AABBC0042CF8D /* NSString+Ex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Ex.h"; sourceTree = "<group>"; };
 		305C2F62218AABBC0042CF8D /* NSString+Ex.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Ex.m"; sourceTree = "<group>"; };
+		306EE008224214B90035E1CD /* privateKey.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = privateKey.txt; sourceTree = "<group>"; };
+		306EE009224214B90035E1CD /* publicKey.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = publicKey.txt; sourceTree = "<group>"; };
 		30AB3BAE21885FF0006E0B80 /* TJTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TJTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30AB3BB121885FF0006E0B80 /* TJTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJTools.h; sourceTree = "<group>"; };
 		30AB3BB221885FF0006E0B80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -133,6 +137,8 @@
 				305C2F62218AABBC0042CF8D /* NSString+Ex.m */,
 				30E9C1D12241EB7A00CFDB1A /* TJ_RSA.h */,
 				30E9C1D02241EB7A00CFDB1A /* TJ_RSA.m */,
+				306EE008224214B90035E1CD /* privateKey.txt */,
+				306EE009224214B90035E1CD /* publicKey.txt */,
 			);
 			path = TJNSString;
 			sourceTree = "<group>";
@@ -284,6 +290,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				306EE00A224214B90035E1CD /* privateKey.txt in Resources */,
+				306EE00B224214B90035E1CD /* publicKey.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
