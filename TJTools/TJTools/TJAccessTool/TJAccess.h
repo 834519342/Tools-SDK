@@ -19,6 +19,12 @@ NS_ASSUME_NONNULL_BEGIN
 // 获取显示的windows
 + (UIWindow *)lastWindow;
 
+// 字典 -> JSONStr
++ (NSString *)dicToJsonStr:(NSDictionary *)dic;
+
+//JSONStr -> 字典
++ (NSDictionary *)jsonStrToDic:(NSString *)jsonStr;
+
 @end
 
 NS_ASSUME_NONNULL_END

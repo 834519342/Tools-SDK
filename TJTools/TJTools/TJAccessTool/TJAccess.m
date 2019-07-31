@@ -55,4 +55,38 @@
     return [UIApplication sharedApplication].keyWindow;
 }
 
+// 字典 -> JSONStr
++ (NSString *)dicToJsonStr:(NSDictionary *)dic
+{
+    if (dic == nil) {
+        return nil;
+    }
+    
+    NSError *err;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&err];
+    if (err) {
+        NSLog(@"json转换失败：%@", err);
+    }
+    NSString *jsonStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    return jsonStr;
+}
+
+//JSONStr -> 字典
++ (NSDictionary *)jsonStrToDic:(NSString *)jsonStr
+{
+    if (jsonStr == nil) {
+        return nil;
+    }
+    
+    NSData *jsonData = [jsonStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err;
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&err];
+    if (err) {
+        NSLog(@"json解析失败：%@", err);
+        return nil;
+    }
+    
+    return dic;
+}
+
 @end
