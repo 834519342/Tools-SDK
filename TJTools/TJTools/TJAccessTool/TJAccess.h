@@ -20,10 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIWindow *)lastWindow;
 
 // 字典 -> JSONStr
-+ (NSString *)dicToJsonStr:(NSDictionary *)dic;
++ (NSString *)dictToJsonStr:(NSDictionary *)dict;
 
 //JSONStr -> 字典
-+ (NSDictionary *)jsonStrToDic:(NSString *)jsonStr;
++ (NSDictionary *)jsonStrToDict:(NSString *)jsonStr;
 
 @end
 

@@ -56,14 +56,19 @@
 }
 
 // 字典 -> JSONStr
-+ (NSString *)dicToJsonStr:(NSDictionary *)dic
++ (NSString *)dictToJsonStr:(NSDictionary *)dict
 {
-    if (dic == nil) {
+    if (dict == nil) {
+        NSLog(@"字典是空的.");
         return nil;
     }
-    
+    //判断字典是否可转成json数据
+    if (![NSJSONSerialization isValidJSONObject:dict]) {
+        NSLog(@"字典无法转成json数据");
+        return nil;
+    }
     NSError *err;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&err];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:kNilOptions error:&err];
     if (err) {
         NSLog(@"json转换失败：%@", err);
     }
@@ -72,21 +77,19 @@
 }
 
 //JSONStr -> 字典
-+ (NSDictionary *)jsonStrToDic:(NSString *)jsonStr
++ (NSDictionary *)jsonStrToDict:(NSString *)jsonStr
 {
     if (jsonStr == nil) {
         return nil;
     }
-    
     NSData *jsonData = [jsonStr dataUsingEncoding:NSUTF8StringEncoding];
     NSError *err;
-    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&err];
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&err];
     if (err) {
         NSLog(@"json解析失败：%@", err);
         return nil;
     }
-    
-    return dic;
+    return dict;
 }
 
 @end
