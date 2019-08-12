@@ -26,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.arr = @[@"TJVersion",@"TJCrash",@"TJAlert",@"TJNSString",@"TJToolTip",@"iOS10Push",@"showActivity",@"TJAppleZF"];
+    self.arr = @[@"TJVersion",@"TJCrash",@"TJAlert",@"TJNSString",@"TJToolTip",@"iOS10Push",@"showActivity",@"TJAppleZF",@"TJKeychain"];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.delegate = self;
@@ -159,6 +159,15 @@
         [[TJAppleZF shareIPA] appleZFWithProductID:@"10001" resultBlock:^(NSDictionary * _Nonnull resultDic) {
             NSLog(@"%@",resultDic);
         }];
+    }
+    if (indexPath.row == 8) {
+        [TJKeychain setValue:@"save_value" forKey:@"save_key"];
+        
+        NSLog(@"%@", [TJKeychain valueForKey:@"save_key"]);
+        
+        [TJKeychain deleteValueForKey:@"save_key"];
+        
+        NSLog(@"%@", [TJKeychain valueForKey:@"save_key"]);
     }
     
 }

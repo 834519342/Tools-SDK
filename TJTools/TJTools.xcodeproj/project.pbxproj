@@ -36,6 +36,8 @@
 		30D34817218AF28C00705FCC /* TJToolTip.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D34815218AF28C00705FCC /* TJToolTip.m */; };
 		30E9C1D22241EB7A00CFDB1A /* TJ_RSA.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E9C1D02241EB7A00CFDB1A /* TJ_RSA.m */; };
 		30E9C1D32241EB7A00CFDB1A /* TJ_RSA.h in Headers */ = {isa = PBXBuildFile; fileRef = 30E9C1D12241EB7A00CFDB1A /* TJ_RSA.h */; };
+		5923647523013FA60060C208 /* TJKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = 5923647323013FA60060C208 /* TJKeychain.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5923647623013FA60060C208 /* TJKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 5923647423013FA60060C208 /* TJKeychain.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +72,8 @@
 		30D34815218AF28C00705FCC /* TJToolTip.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJToolTip.m; sourceTree = "<group>"; };
 		30E9C1D02241EB7A00CFDB1A /* TJ_RSA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJ_RSA.m; sourceTree = "<group>"; };
 		30E9C1D12241EB7A00CFDB1A /* TJ_RSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJ_RSA.h; sourceTree = "<group>"; };
+		5923647323013FA60060C208 /* TJKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJKeychain.h; sourceTree = "<group>"; };
+		5923647423013FA60060C208 /* TJKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJKeychain.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +167,7 @@
 		30AB3BB021885FF0006E0B80 /* TJTools */ = {
 			isa = PBXGroup;
 			children = (
+				5923647223013FA60060C208 /* TJKeychain */,
 				3005FBC522165C350082BA50 /* TJAccessTool */,
 				30AD36E8219183AC0037DF49 /* TJApplePay */,
 				3035D621218C49F0005796EF /* TJLocalPush */,
@@ -209,6 +214,15 @@
 			path = TJToolTip;
 			sourceTree = "<group>";
 		};
+		5923647223013FA60060C208 /* TJKeychain */ = {
+			isa = PBXGroup;
+			children = (
+				5923647323013FA60060C208 /* TJKeychain.h */,
+				5923647423013FA60060C208 /* TJKeychain.m */,
+			);
+			path = TJKeychain;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -216,6 +230,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5923647523013FA60060C208 /* TJKeychain.h in Headers */,
 				3005FBC822165C780082BA50 /* TJAccess.h in Headers */,
 				30D34816218AF28C00705FCC /* TJToolTip.h in Headers */,
 				30AB3C0E21886C05006E0B80 /* TJVersion.h in Headers */,
@@ -307,6 +322,7 @@
 				30E9C1D22241EB7A00CFDB1A /* TJ_RSA.m in Sources */,
 				3035D625218C4A0F005796EF /* TJLocalPush.m in Sources */,
 				3005FBC922165C780082BA50 /* TJAccess.m in Sources */,
+				5923647623013FA60060C208 /* TJKeychain.m in Sources */,
 				305C2F5B218AA36E0042CF8D /* TJAlert.m in Sources */,
 				30AD36EC219183C80037DF49 /* TJAppleZF.m in Sources */,
 				30AB3C0D21886C05006E0B80 /* TJAppInfo.m in Sources */,
