@@ -26,14 +26,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.arr = @[@"TJVersion",@"TJCrash",@"TJAlert",@"TJNSString",@"TJToolTip",@"iOS10Push",@"showActivity",@"TJAppleZF",@"TJKeychain"];
+    self.arr = @[@"TJVersion",@"TJCrash",@"TJAlert",@"TJNSString",@"TJToolTip",@"iOS10Push",@"showActivity",@"TJAppleZF",@"TJKeychain",@"TJDeviceInfo"];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     //崩溃信息
-    [[TJCrash sharedCrash] sendCrashInfoToEMail];
+//    [[TJCrash sharedCrash] sendCrashInfoToEMail];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -168,6 +168,11 @@
         [TJKeychain deleteValueForKey:@"save_key"];
         
         NSLog(@"%@", [TJKeychain valueForKey:@"save_key"]);
+    }
+    if (indexPath.row == 9) {
+        [[TJDeviceInfo shareInstance] getDeviceInfoDic:^(NSDictionary * _Nonnull resultDic) {
+            NSLog(@"%@", resultDic);
+        }];
     }
     
 }

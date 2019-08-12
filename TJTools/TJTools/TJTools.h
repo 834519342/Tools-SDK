@@ -29,6 +29,7 @@
 #import "TJAppleZF.h"
 #import "TJAccess.h"
 #import "TJKeychain.h"
+#import "TJDeviceInfo.h"
 
 //! Project version number for TJTools.
 FOUNDATION_EXPORT double TJToolsVersionNumber;

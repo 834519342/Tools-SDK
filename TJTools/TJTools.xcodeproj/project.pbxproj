@@ -38,6 +38,11 @@
 		30E9C1D32241EB7A00CFDB1A /* TJ_RSA.h in Headers */ = {isa = PBXBuildFile; fileRef = 30E9C1D12241EB7A00CFDB1A /* TJ_RSA.h */; };
 		5923647523013FA60060C208 /* TJKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = 5923647323013FA60060C208 /* TJKeychain.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5923647623013FA60060C208 /* TJKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 5923647423013FA60060C208 /* TJKeychain.m */; };
+		592364A1230170C20060C208 /* TJDeviceInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 5923649F230170C20060C208 /* TJDeviceInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		592364A2230170C20060C208 /* TJDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 592364A0230170C20060C208 /* TJDeviceInfo.m */; };
+		592364A9230192A70060C208 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 592364A6230192A70060C208 /* Reachability.m */; };
+		592364AA230192A70060C208 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 592364A7230192A70060C208 /* ReadMe.md */; };
+		592364AB230192A70060C208 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 592364A8230192A70060C208 /* Reachability.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +79,11 @@
 		30E9C1D12241EB7A00CFDB1A /* TJ_RSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJ_RSA.h; sourceTree = "<group>"; };
 		5923647323013FA60060C208 /* TJKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJKeychain.h; sourceTree = "<group>"; };
 		5923647423013FA60060C208 /* TJKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJKeychain.m; sourceTree = "<group>"; };
+		5923649F230170C20060C208 /* TJDeviceInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJDeviceInfo.h; sourceTree = "<group>"; };
+		592364A0230170C20060C208 /* TJDeviceInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJDeviceInfo.m; sourceTree = "<group>"; };
+		592364A6230192A70060C208 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		592364A7230192A70060C208 /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
+		592364A8230192A70060C208 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +177,7 @@
 		30AB3BB021885FF0006E0B80 /* TJTools */ = {
 			isa = PBXGroup;
 			children = (
+				5923649E230170AF0060C208 /* TJDeviceInfo */,
 				5923647223013FA60060C208 /* TJKeychain */,
 				3005FBC522165C350082BA50 /* TJAccessTool */,
 				30AD36E8219183AC0037DF49 /* TJApplePay */,
@@ -223,6 +234,26 @@
 			path = TJKeychain;
 			sourceTree = "<group>";
 		};
+		5923649E230170AF0060C208 /* TJDeviceInfo */ = {
+			isa = PBXGroup;
+			children = (
+				592364A5230192A70060C208 /* Reachability */,
+				5923649F230170C20060C208 /* TJDeviceInfo.h */,
+				592364A0230170C20060C208 /* TJDeviceInfo.m */,
+			);
+			path = TJDeviceInfo;
+			sourceTree = "<group>";
+		};
+		592364A5230192A70060C208 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				592364A6230192A70060C208 /* Reachability.m */,
+				592364A7230192A70060C208 /* ReadMe.md */,
+				592364A8230192A70060C208 /* Reachability.h */,
+			);
+			path = Reachability;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -230,6 +261,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				592364A1230170C20060C208 /* TJDeviceInfo.h in Headers */,
 				5923647523013FA60060C208 /* TJKeychain.h in Headers */,
 				3005FBC822165C780082BA50 /* TJAccess.h in Headers */,
 				30D34816218AF28C00705FCC /* TJToolTip.h in Headers */,
@@ -243,6 +275,7 @@
 				30AD36EB219183C80037DF49 /* TJAppleZF.h in Headers */,
 				305C2F55218AA02E0042CF8D /* TJCrash.h in Headers */,
 				30AB3C0C21886C05006E0B80 /* TJAppInfo.h in Headers */,
+				592364AB230192A70060C208 /* Reachability.h in Headers */,
 				305C2F60218AAB990042CF8D /* PrefixHeader.pch in Headers */,
 				30AB3BB321885FF0006E0B80 /* TJTools.h in Headers */,
 			);
@@ -307,6 +340,7 @@
 			files = (
 				306EE00A224214B90035E1CD /* privateKey.txt in Resources */,
 				306EE00B224214B90035E1CD /* publicKey.txt in Resources */,
+				592364AA230192A70060C208 /* ReadMe.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,8 +352,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				30AB3C0F21886C05006E0B80 /* TJVersion.m in Sources */,
+				592364A2230170C20060C208 /* TJDeviceInfo.m in Sources */,
 				3035D629218C4A1A005796EF /* TJNotificationModel.m in Sources */,
 				30E9C1D22241EB7A00CFDB1A /* TJ_RSA.m in Sources */,
+				592364A9230192A70060C208 /* Reachability.m in Sources */,
 				3035D625218C4A0F005796EF /* TJLocalPush.m in Sources */,
 				3005FBC922165C780082BA50 /* TJAccess.m in Sources */,
 				5923647623013FA60060C208 /* TJKeychain.m in Sources */,
@@ -464,6 +500,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = TJTools/PrefixHeader.pch;
 				INFOPLIST_FILE = TJTools/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -491,6 +529,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = TJTools/PrefixHeader.pch;
 				INFOPLIST_FILE = TJTools/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
