@@ -26,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.arr = @[@"TJVersion",@"TJCrash",@"TJAlert",@"TJNSString",@"TJToolTip",@"iOS10Push",@"showActivity",@"TJAppleZF",@"TJKeychain",@"TJDeviceInfo"];
+    self.arr = @[@"TJVersion",@"TJCrash",@"TJAlert",@"TJNSString",@"TJToolTip",@"iOS10Push",@"showActivity",@"TJAppleZF",@"TJKeychain",@"TJDeviceInfo",@"TJLocation"];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.delegate = self;
@@ -170,8 +170,13 @@
         NSLog(@"%@", [TJKeychain valueForKey:@"save_key"]);
     }
     if (indexPath.row == 9) {
-        [[TJDeviceInfo shareInstance] getDeviceInfoDic:^(NSDictionary * _Nonnull resultDic) {
-            NSLog(@"%@", resultDic);
+        [[TJDeviceInfo shareInstance] getDeviceInfoDic:^(NSDictionary * _Nonnull deviceInfo) {
+            NSLog(@"%@", deviceInfo);
+        }];
+    }
+    if (indexPath.row == 10) {
+        [[TJLocation shareInstance] startUpdatingLocation:^(NSDictionary * _Nonnull locationInfo) {
+            NSLog(@"%@", locationInfo);
         }];
     }
     

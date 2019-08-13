@@ -30,7 +30,7 @@ static TJDeviceInfo *deviceManager;
     return deviceManager;
 }
 
-- (void)getDeviceInfoDic:(void(^)(NSDictionary *resultDic))result
+- (void)getDeviceInfoDic:(void (^)(NSDictionary * _Nonnull))result
 {
     if (result) {
         result(@{
@@ -227,6 +227,7 @@ static TJDeviceInfo *deviceManager;
     NSLog(@"[carrier isoCountryCode] = %@", [carrier isoCountryCode]);  // 国家代码字符串
     NSLog(@"[carrier allowsVOIP] = %d", [carrier allowsVOIP]);
     
+    //isp = mcc + mnc
     NSString *name = [carrier carrierName];
     return name;
 }

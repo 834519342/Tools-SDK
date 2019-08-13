@@ -43,6 +43,8 @@
 		592364A9230192A70060C208 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 592364A6230192A70060C208 /* Reachability.m */; };
 		592364AA230192A70060C208 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 592364A7230192A70060C208 /* ReadMe.md */; };
 		592364AB230192A70060C208 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 592364A8230192A70060C208 /* Reachability.h */; };
+		592364C823028A6D0060C208 /* TJLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 592364C623028A6D0060C208 /* TJLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		592364C923028A6D0060C208 /* TJLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 592364C723028A6D0060C208 /* TJLocation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +86,8 @@
 		592364A6230192A70060C208 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		592364A7230192A70060C208 /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
 		592364A8230192A70060C208 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		592364C623028A6D0060C208 /* TJLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJLocation.h; sourceTree = "<group>"; };
+		592364C723028A6D0060C208 /* TJLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJLocation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +181,7 @@
 		30AB3BB021885FF0006E0B80 /* TJTools */ = {
 			isa = PBXGroup;
 			children = (
+				592364C5230289F70060C208 /* TJLocation */,
 				5923649E230170AF0060C208 /* TJDeviceInfo */,
 				5923647223013FA60060C208 /* TJKeychain */,
 				3005FBC522165C350082BA50 /* TJAccessTool */,
@@ -254,6 +259,15 @@
 			path = Reachability;
 			sourceTree = "<group>";
 		};
+		592364C5230289F70060C208 /* TJLocation */ = {
+			isa = PBXGroup;
+			children = (
+				592364C623028A6D0060C208 /* TJLocation.h */,
+				592364C723028A6D0060C208 /* TJLocation.m */,
+			);
+			path = TJLocation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -261,6 +275,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				592364C823028A6D0060C208 /* TJLocation.h in Headers */,
 				592364A1230170C20060C208 /* TJDeviceInfo.h in Headers */,
 				5923647523013FA60060C208 /* TJKeychain.h in Headers */,
 				3005FBC822165C780082BA50 /* TJAccess.h in Headers */,
@@ -365,6 +380,7 @@
 				30AB3C1121886C05006E0B80 /* TJVersionRequest.m in Sources */,
 				30D34817218AF28C00705FCC /* TJToolTip.m in Sources */,
 				305C2F64218AABBC0042CF8D /* NSString+Ex.m in Sources */,
+				592364C923028A6D0060C208 /* TJLocation.m in Sources */,
 				305C2F56218AA02E0042CF8D /* TJCrash.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -504,7 +520,7 @@
 				GCC_PREFIX_HEADER = TJTools/PrefixHeader.pch;
 				INFOPLIST_FILE = TJTools/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -533,7 +549,7 @@
 				GCC_PREFIX_HEADER = TJTools/PrefixHeader.pch;
 				INFOPLIST_FILE = TJTools/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
