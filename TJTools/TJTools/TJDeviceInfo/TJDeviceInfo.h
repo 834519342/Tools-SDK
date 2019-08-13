@@ -62,11 +62,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)getIDFA;
 
 /**
- 获取网络状态
+ 获取网络类型
 
- @return 网络状态
+ @return 网络类型：WIFI/2G/3G/4G
  */
-- (NSString *)getNetWorkStatus;
+- (NSString *)getNetWorkType;
 
 /**
  获取APP名字

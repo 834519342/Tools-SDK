@@ -34,15 +34,16 @@ static TJDeviceInfo *deviceManager;
 {
     if (result) {
         result(@{
-                 @"deviceType": [self getDeviceType],
-                 @"systemVersion": [self getSystemVersion],
+                 @"DeviceType": [self getDeviceType],
+                 @"SystemVersion": [self getSystemVersion],
                  @"UDID": [self getUDID],
                  @"IDFA": [self getIDFA],
-                 @"netStatus": [self getNetWorkStatus],
-                 @"system": @"iOS",
-                 @"channel": @"App Store",
-                 @"bundleName": [self getBundleName],
-                 @"netOperator": [self getNetworkOperator]
+                 @"NetWorkType": [self getNetWorkType],
+                 @"System": @"iOS",
+                 @"Channel": @"App Store",
+                 @"BundleName": [self getBundleName],
+                 @"NetWorkOperator": [self getNetworkOperator],
+                 @"SDKVersion": @"1.0.0"
                  });
     }
 }
@@ -163,25 +164,51 @@ static TJDeviceInfo *deviceManager;
     return @"";
 }
 
-- (NSString *)getNetWorkStatus
+- (NSString *)getNetWorkType
 {
+    NSString *networkType = @"";
+    
     NSString *remoteHostName = @"www.apple.com";
     Reachability *reachability = [Reachability reachabilityWithHostName:remoteHostName];
     NetworkStatus netStatus = [reachability currentReachabilityStatus];
-    NSString *network = @"";
     switch (netStatus) {
         case NotReachable:
-            network = @"NoNetwork";
+            networkType = @"no network";
             break;
         case ReachableViaWiFi:
-            network = @"WIFI";
+            networkType = @"WIFI";
             break;
         case ReachableViaWWAN:
-            network = @"MobileNetwork";
+        {
+            // 获取手机网络类型
+            CTTelephonyNetworkInfo *info = [[CTTelephonyNetworkInfo alloc] init];
+            NSString *currentStatus = info.currentRadioAccessTechnology;
+            networkType = currentStatus;
+            if ([currentStatus isEqualToString:@"CTRadioAccessTechnologyGPRS"]) {
+                networkType = @"GPRS";
+            }else if ([currentStatus isEqualToString:@"CTRadioAccessTechnologyEdge"]) {
+                networkType = @"2.75G EDGE";
+            }else if ([currentStatus isEqualToString:@"CTRadioAccessTechnologyWCDMA"]) {
+                networkType = @"3G";
+            }else if ([currentStatus isEqualToString:@"CTRadioAccessTechnologyHSDPA"]) {
+                networkType = @"3.5G HSDPA";
+            }else if ([currentStatus isEqualToString:@"CTRadioAccessTechnologyCDMA1x"]) {
+                networkType = @"2G";
+            }else if ([currentStatus isEqualToString:@"CTRadioAccessTechnologyCDMAEVDORev0"] ||
+                      [currentStatus isEqualToString:@"CTRadioAccessTechnologyCDMAEVDORevA"] ||
+                      [currentStatus isEqualToString:@"CTRadioAccessTechnologyCDMAEVDORevB"]) {
+                networkType = @"3G";
+            }else if ([currentStatus isEqualToString:@"CTRadioAccessTechnologyeHRPD"]) {
+                networkType = @"HRPD";
+            }else if ([currentStatus isEqualToString:@"CTRadioAccessTechnologyLTE"]) {
+                networkType = @"4G";
+            }
+        }
+            break;
         default:
             break;
     }
-    return network;
+    return networkType;
 }
 
 - (NSString *)getBundleName
@@ -194,10 +221,13 @@ static TJDeviceInfo *deviceManager;
 {
     CTTelephonyNetworkInfo *info = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *carrier = [info subscriberCellularProvider];
-//    NSString *mcc = [carrier mobileCountryCode];  // 国家码
-//    NSString *mnc = [carrier mobileNetworkCode];  //网络码
-    NSString *name = [carrier carrierName];  //运营商名称
+    NSLog(@"[carrier carrierName] = %@", [carrier carrierName]);    // 运营商名称
+    NSLog(@"[carrier mobileCountryCode] = %@", [carrier mobileCountryCode]);    // 国家码
+    NSLog(@"[carrier mobileNetworkCode] = %@", [carrier mobileNetworkCode]);    //网络码
+    NSLog(@"[carrier isoCountryCode] = %@", [carrier isoCountryCode]);  // 国家代码字符串
+    NSLog(@"[carrier allowsVOIP] = %d", [carrier allowsVOIP]);
     
+    NSString *name = [carrier carrierName];
     return name;
 }
 
