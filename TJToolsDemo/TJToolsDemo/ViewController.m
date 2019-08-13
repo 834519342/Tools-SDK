@@ -34,6 +34,7 @@
     [self.view addSubview:self.tableView];
     //崩溃信息
 //    [[TJCrash sharedCrash] sendCrashInfoToEMail];
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -175,12 +176,16 @@
         }];
     }
     if (indexPath.row == 10) {
-        [[TJLocation shareInstance] startUpdatingLocation:^(NSDictionary * _Nonnull locationInfo) {
-            [[TJLocation shareInstance] stopUpdatingLocation];
+//        [[TJLocation shareInstance] startUpdatingLocation:^(NSDictionary * _Nonnull locationInfo) {
+//            [[TJLocation shareInstance] stopUpdatingLocation];
+//            NSLog(@"%@", locationInfo);
+//        }];
+        [[TJLocation shareInstance] requestLocation:^(NSDictionary * _Nonnull locationInfo) {
             NSLog(@"%@", locationInfo);
         }];
     }
     
 }
+
 
 @end

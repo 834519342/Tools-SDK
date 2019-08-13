@@ -43,7 +43,8 @@ static TJDeviceInfo *deviceManager;
                  @"Channel": @"App Store",
                  @"BundleName": [self getBundleName],
                  @"NetWorkOperator": [self getNetworkOperator],
-                 @"SDKVersion": @"1.0.0"
+                 @"SDKVersion": @"1.0.0",
+                 @"JailBreak": [self isJailBreak]
                  });
     }
 }
@@ -230,6 +231,21 @@ static TJDeviceInfo *deviceManager;
     //isp = mcc + mnc
     NSString *name = [carrier carrierName];
     return name;
+}
+
+- (NSString *)isJailBreak
+{
+    BOOL status1 = NO;
+    BOOL status2 = NO;
+    //根据是否能打开cydia判断
+    status1 = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"cydia://"]];
+    //根据是否能获取所有应用的名称判断 没有越狱的设备是没有读取所有应用名称的权限的
+    status2 = [[NSFileManager defaultManager] fileExistsAtPath:@"User/Applications/"];
+    if (status1 || status2) {  //如果有一只方式判定为设备越狱了那么设备就越狱了不接受任何反驳
+        return  @"越狱";
+    }else{
+        return  @"非越狱";
+    }
 }
 
 @end

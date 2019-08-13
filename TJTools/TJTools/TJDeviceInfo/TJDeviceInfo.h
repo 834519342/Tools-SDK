@@ -82,6 +82,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSString *)getNetworkOperator;
 
+/**
+ 判断是否越狱
+
+ @return 越狱/非越狱
+ */
+- (NSString *)isJailBreak;
+
 @end
 
 NS_ASSUME_NONNULL_END
