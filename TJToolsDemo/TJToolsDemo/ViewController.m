@@ -176,6 +176,7 @@
     }
     if (indexPath.row == 10) {
         [[TJLocation shareInstance] startUpdatingLocation:^(NSDictionary * _Nonnull locationInfo) {
+            [[TJLocation shareInstance] stopUpdatingLocation];
             NSLog(@"%@", locationInfo);
         }];
     }

@@ -221,11 +221,11 @@ static TJDeviceInfo *deviceManager;
 {
     CTTelephonyNetworkInfo *info = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *carrier = [info subscriberCellularProvider];
-    NSLog(@"[carrier carrierName] = %@", [carrier carrierName]);    // 运营商名称
-    NSLog(@"[carrier mobileCountryCode] = %@", [carrier mobileCountryCode]);    // 国家码
-    NSLog(@"[carrier mobileNetworkCode] = %@", [carrier mobileNetworkCode]);    //网络码
-    NSLog(@"[carrier isoCountryCode] = %@", [carrier isoCountryCode]);  // 国家代码字符串
-    NSLog(@"[carrier allowsVOIP] = %d", [carrier allowsVOIP]);
+//    NSLog(@"[carrier carrierName] = %@", [carrier carrierName]);    // 运营商名称
+//    NSLog(@"[carrier mobileCountryCode] = %@", [carrier mobileCountryCode]);    // 国家码
+//    NSLog(@"[carrier mobileNetworkCode] = %@", [carrier mobileNetworkCode]);    //网络码
+//    NSLog(@"[carrier isoCountryCode] = %@", [carrier isoCountryCode]);  // 国家代码字符串
+//    NSLog(@"[carrier allowsVOIP] = %d", [carrier allowsVOIP]);
     
     //isp = mcc + mnc
     NSString *name = [carrier carrierName];

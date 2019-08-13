@@ -92,8 +92,6 @@ static TJLocation *instance;
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
-    [self stopUpdatingLocation];
-    
     CLLocation *currentLocation = [locations lastObject];
     //反地理编码
     CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
