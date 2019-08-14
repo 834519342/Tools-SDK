@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param callback 位置信息
  */
-- (void)startUpdatingLocation:(void (^)(NSDictionary * _Nonnull locationInfo))callback;
+- (void)startUpdatingLocation:(void (^)(NSDictionary * _Nonnull resultDic))callback;
 
 /**
  停止更新位置信息
@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param callback 位置信息
  */
-- (void)requestLocation:(void (^)(NSDictionary * _Nonnull locationInfo))callback;
+- (void)requestLocation:(void (^)(NSDictionary * _Nonnull resultDic))callback;
 
 @end
 

@@ -171,8 +171,8 @@
         NSLog(@"%@", [TJKeychain valueForKey:@"save_key"]);
     }
     if (indexPath.row == 9) {
-        [[TJDeviceInfo shareInstance] getDeviceInfoDic:^(NSDictionary * _Nonnull deviceInfo) {
-            NSLog(@"%@", deviceInfo);
+        [[TJDeviceInfo shareInstance] getDeviceInfoDic:^(NSDictionary * _Nonnull resultDic) {
+            NSLog(@"%@", resultDic);
         }];
     }
     if (indexPath.row == 10) {
@@ -180,8 +180,8 @@
 //            [[TJLocation shareInstance] stopUpdatingLocation];
 //            NSLog(@"%@", locationInfo);
 //        }];
-        [[TJLocation shareInstance] requestLocation:^(NSDictionary * _Nonnull locationInfo) {
-            NSLog(@"%@", locationInfo);
+        [[TJLocation shareInstance] requestLocation:^(NSDictionary * _Nonnull resultDic) {
+            NSLog(@"%@", resultDic);
         }];
     }
     
