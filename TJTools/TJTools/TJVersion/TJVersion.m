@@ -165,14 +165,14 @@
     [TJVersionRequest requestVersionInfoSuccess:^(NSDictionary *responseDict) {
         
         NSInteger resultCount = [responseDict[@"resultCount"] integerValue];
-        self.appInfo.resultCount = [NSString stringWithFormat:@"%ld",resultCount];
+        self.appInfo.resultCount = [NSString stringWithFormat:@"%ld", (long)resultCount];
         //判断是否发布
         if (resultCount == 1)
         {
             NSArray *resultArray = responseDict[@"results"];
             NSDictionary *result = resultArray.firstObject;
             TJAppInfo *appInfo = [[TJAppInfo alloc] initWithResult:result];
-            appInfo.resultCount = [NSString stringWithFormat:@"%ld",resultCount];
+            appInfo.resultCount = [NSString stringWithFormat:@"%ld",(long)resultCount];
             NSString *version = appInfo.version;
             self.appInfo = appInfo;
             if ([self isNewVersion:version])
@@ -182,7 +182,7 @@
                 }
             }else { //当前版本
                 if (newVersion) {
-                    newVersion(self.appInfo);
+//                    newVersion(self.appInfo);
                 }
             }
         }else {
