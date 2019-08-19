@@ -35,6 +35,7 @@
     //崩溃信息
 //    [[TJCrash sharedCrash] sendCrashInfoToEMail];
 
+    TJLog(@"%@", @"测试啊");
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

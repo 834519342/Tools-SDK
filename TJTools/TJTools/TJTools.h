@@ -19,6 +19,7 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "TJDefine.h"
 #import "TJVersion.h"
 #import "TJCrash.h"
 #import "TJAlert.h"

@@ -45,6 +45,7 @@
 		592364AB230192A70060C208 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 592364A8230192A70060C208 /* Reachability.h */; };
 		592364C823028A6D0060C208 /* TJLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 592364C623028A6D0060C208 /* TJLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		592364C923028A6D0060C208 /* TJLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 592364C723028A6D0060C208 /* TJLocation.m */; };
+		59D6CD77230A4D9D003F6CC4 /* TJDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = 59D6CD76230A4D9D003F6CC4 /* TJDefine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +89,7 @@
 		592364A8230192A70060C208 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		592364C623028A6D0060C208 /* TJLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJLocation.h; sourceTree = "<group>"; };
 		592364C723028A6D0060C208 /* TJLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJLocation.m; sourceTree = "<group>"; };
+		59D6CD76230A4D9D003F6CC4 /* TJDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJDefine.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 				305C2F52218AA0070042CF8D /* TJCrash */,
 				30AB3C0521886C05006E0B80 /* TJVersion */,
 				30AB3BB121885FF0006E0B80 /* TJTools.h */,
+				59D6CD76230A4D9D003F6CC4 /* TJDefine.h */,
 				305C2F5F218AAB990042CF8D /* PrefixHeader.pch */,
 				30AB3BB221885FF0006E0B80 /* Info.plist */,
 			);
@@ -275,6 +278,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59D6CD77230A4D9D003F6CC4 /* TJDefine.h in Headers */,
 				592364C823028A6D0060C208 /* TJLocation.h in Headers */,
 				592364A1230170C20060C208 /* TJDeviceInfo.h in Headers */,
 				5923647523013FA60060C208 /* TJKeychain.h in Headers */,
@@ -337,6 +341,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 30AB3BA421885FF0006E0B80;
 			productRefGroup = 30AB3BAF21885FF0006E0B80 /* Products */;
