@@ -146,6 +146,7 @@
 - (void)completedTransactionsFinished:(SKPaymentTransaction *)transaction
 {
     //判断沙箱支付
+    NSLog(@"获取收据URL：%@", [[NSBundle mainBundle] appStoreReceiptURL]);
     NSString * str = [[NSString alloc]initWithData:transaction.transactionReceipt encoding:NSUTF8StringEncoding];
     NSString *environment=[self environmentForReceipt:str];
     

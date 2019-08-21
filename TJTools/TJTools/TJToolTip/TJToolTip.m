@@ -57,7 +57,7 @@
     [TJToolTip sharedToolTip].activityBackView = nil;
 }
 
-//初始化
+// 加载器背景色
 - (UIView *)activityBackView
 {
     if (_activityBackView == nil) {
@@ -71,13 +71,14 @@
     return _activityBackView;
 }
 
+// 菊花风格
 - (UIActivityIndicatorView *)activityView
 {
     if (_activityView == nil) {
         _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         _activityView.frame = CGRectMake(0, 0, 80, 80);
-        _activityView.color = [UIColor whiteColor];
-        _activityView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+        _activityView.color = [UIColor blackColor];
+        _activityView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
         _activityView.hidesWhenStopped = NO;
         _activityView.layer.cornerRadius = 8.f;
     }
@@ -225,7 +226,7 @@
         yuanjiaoView.frame = self.contentView.bounds;
         yuanjiaoView.userInteractionEnabled = NO;
         yuanjiaoView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
-        yuanjiaoView.layer.cornerRadius = 8.f;
+        yuanjiaoView.layer.cornerRadius = 10.f;
         yuanjiaoView.layer.masksToBounds = YES; //圆角切割
 //        yuanjiaoView.layer.borderColor = [[UIColor grayColor] colorWithAlphaComponent:0.5].CGColor;
 //        yuanjiaoView.layer.borderWidth = 1.f;
@@ -264,9 +265,23 @@
 //顶端显示，带动画
 - (void)showTop
 {
+//    self.contentView.frame = CGRectMake(10, -54, ScreenWidth - 20, 54);
+    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    self.contentView.frame = CGRectMake(10, -54, ScreenWidth - 20, 54);
     [window addSubview:self.contentView];
+    if (@available(iOS 9.0, *)) {
+        UIEdgeInsets padding = UIEdgeInsetsMake(0, 0, 0, 0);
+        [window addConstraints:@[
+                                    [NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:window.readableContentGuide attribute:NSLayoutAttributeTop multiplier:1.0 constant:padding.top],
+                                    [NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:window.readableContentGuide attribute:NSLayoutAttributeLeft multiplier:1.0 constant:padding.left],
+                                    [NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:window.readableContentGuide attribute:NSLayoutAttributeRight multiplier:1.0 constant:-padding.right],
+                                    [NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:window.readableContentGuide attribute:NSLayoutAttributeHeight multiplier:1.0 constant:54]
+                                    ]];
+    }else {
+        self.contentView.translatesAutoresizingMaskIntoConstraints = YES;
+        self.contentView.frame = CGRectMake(10, -54, ScreenWidth - 20, 54);
+    }
+    
     [self showTopAnimation];
     [self performSelector:@selector(hideTopAnimation) withObject:nil afterDelay:self.duration];
 }
