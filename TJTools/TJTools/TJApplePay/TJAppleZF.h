@@ -11,14 +11,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef enum {
-    SIAPPurchSuccess = 0,       // 购买成功
-    SIAPPurchFailed = 1,        // 购买失败
-    SIAPPurchCancle = 2,        // 取消购买
-    SIAPPurchNoProduct = 3,     // 没有商品信息
-    SIAPPurchProductIdError = 4, // 商品ID错误
-    SIAPPurchNotArrow = 5,      // 不允许内购
-    SIAPPurchVerFailed = 6,     // 订单校验失败
-    SIAPPurchVerSuccess = 7,    // 订单校验成功
+    PaymentCancel = 0,          // 取消购买
+    PaymentSuccess = 1,         // 购买成功
+    PaymentFailed = 2,          // 购买失败
+    PaymentNoProduct = 3,       // 没有商品信息
+    PaymentProductIdError = 4,  // 商品ID错误
+    PaymentNotAllowed = 5,      // 不允许内购
 }SIAPPurchType;
 
 typedef void(^AppleZFBlock)(NSDictionary *resultDic);
@@ -27,7 +25,7 @@ typedef void(^AppleZFBlock)(NSDictionary *resultDic);
 
 + (instancetype)shareIPA;
 
-- (void)appleZFWithProductID:(NSString *)productID resultBlock:(AppleZFBlock)appleZFBlock;
+- (void)appleZFWithProductID:(NSString *)productID completionHandler:(AppleZFBlock)appleZFBlock;
 
 @end
 

@@ -9,7 +9,6 @@
 #import "TJAppleZF.h"
 #import <StoreKit/StoreKit.h>
 #import "TJToolTip.h"
-#import "TJAlert.h"
 
 @interface TJAppleZF ()<SKPaymentTransactionObserver,SKProductsRequestDelegate>
 
@@ -32,7 +31,7 @@
     return appleZF;
 }
 
-- (void)appleZFWithProductID:(NSString *)productID resultBlock:(AppleZFBlock)appleZFBlock
+- (void)appleZFWithProductID:(NSString *)productID completionHandler:(AppleZFBlock)appleZFBlock
 {
     if (appleZFBlock) {
         self.appleBlock = appleZFBlock;
@@ -48,7 +47,7 @@
             [TJToolTip showActivity];
         }else {
             //不允许内购
-            [self handleActionWithType:SIAPPurchNotArrow data:nil];
+            [self handleActionWithType:PaymentNotAllowed data:nil];
         }
         
     }
@@ -61,7 +60,7 @@
     NSArray *product = response.products;
     if ([product count] <= 0) {
         [TJToolTip hideActivity];
-        [self handleActionWithType:SIAPPurchNoProduct data:nil];
+        [self handleActionWithType:PaymentNoProduct data:nil];
         return;
     }
     
@@ -79,7 +78,7 @@
         [[SKPaymentQueue defaultQueue] addPayment:zfMent];
     }else {
         [TJToolTip hideActivity];
-        [self handleActionWithType:SIAPPurchProductIdError data:nil];
+        [self handleActionWithType:PaymentProductIdError data:nil];
     }
     
     //商品信息
@@ -114,7 +113,7 @@
     for (SKPaymentTransaction *tran in transactions) {
         switch (tran.transactionState) {
             case SKPaymentTransactionStatePurchasing:
-                NSLog(@"商品添加进列表");
+                NSLog(@"商品被添加进支付队列");
                 break;
             case SKPaymentTransactionStatePurchased:
                 NSLog(@"交易完成");
@@ -142,58 +141,96 @@
     }
 }
 
+//收据判断沙箱环境
+//-(NSString * )environmentForReceipt:(NSString * )str
+//{
+//    str= [str stringByReplacingOccurrencesOfString:@"\r\n" withString:@""];
+//    str = [str stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+//    str = [str stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+//    str=[str stringByReplacingOccurrencesOfString:@" " withString:@""];
+//    str=[str stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+//    NSArray * arr=[str componentsSeparatedByString:@";"];
+//    //存储收据环境的变量
+//    NSString * environment=arr[2];
+//    return environment;
+//}
+
 #pragma mark - 交易完成
 - (void)completedTransactionsFinished:(SKPaymentTransaction *)transaction
 {
-    //判断沙箱支付
-    NSLog(@"获取收据URL：%@", [[NSBundle mainBundle] appStoreReceiptURL]);
-    NSString * str = [[NSString alloc]initWithData:transaction.transactionReceipt encoding:NSUTF8StringEncoding];
-    NSString *environment=[self environmentForReceipt:str];
+    // 判断沙箱支付，iOS7以下
+//        NSString * str = [[NSString alloc] initWithData:transaction.transactionReceipt encoding:NSUTF8StringEncoding];
+//        NSString *environment=[self environmentForReceipt:str];
+//        if ([environment isEqualToString:@"environment=Sandbox"])
+//            NSLog(@"environment = %@",environment);
     
-    if ([environment isEqualToString:@"environment=Sandbox"])
-    {
-        NSLog(@"environment = %@",environment);
+    // appStoreReceiptURL iOS7.0增加的，购买交易完成后，会将凭据存放在该地址
+    NSURL *receiptURL= [[NSBundle mainBundle] appStoreReceiptURL];
+    // 获取到购买凭据
+    NSData *receiptData = [NSData dataWithContentsOfURL:receiptURL];
+    if ([transaction.payment.productIdentifier length] > 0) {
+        // 购买凭证
+//        NSString *receipt = [transaction.transactionReceipt base64Encoding];
+        NSString *receipt = [receiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+//        [self verifyReceipt:receipt];
+        [self handleActionWithType:PaymentSuccess data:receipt];
     }
-    
-    NSString *productIdentifier = transaction.payment.productIdentifier;
-    if ([productIdentifier length] > 0) {
-        //购买凭证
-        NSString *receipt = [transaction.transactionReceipt base64Encoding];
-        [self handleActionWithType:SIAPPurchSuccess data:receipt];
-    }
-    
     //移除支付队列
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
 
-//收据判断沙箱环境
--(NSString * )environmentForReceipt:(NSString * )str
+// 苹果服务器验证支付凭证
+- (void)verifyReceipt:(NSString *)receipt
 {
-    str= [str stringByReplacingOccurrencesOfString:@"\r\n" withString:@""];
-    
-    str = [str stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    
-    str = [str stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-    
-    str=[str stringByReplacingOccurrencesOfString:@" " withString:@""];
-    
-    str=[str stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-    
-    NSArray * arr=[str componentsSeparatedByString:@";"];
-    
-    //存储收据环境的变量
-    NSString * environment=arr[2];
-    return environment;
+    // 根据地址判断沙箱支付
+    NSString *receiptURLStr = [[[NSBundle mainBundle] appStoreReceiptURL] absoluteString];
+    NSRange rangeSandbox = [receiptURLStr rangeOfString:@"sandbox"];
+    // 根据是否是沙盒支付验证获取正确的地址
+    NSURL *storeURL;
+    if (rangeSandbox.location != NSNotFound) {
+        NSLog(@"Sandbox Pay");
+        storeURL= [[NSURL alloc] initWithString: @"https://sandbox.itunes.apple.com/verifyReceipt"];
+    }else {
+        storeURL= [[NSURL alloc] initWithString: @"https://buy.itunes.apple.com/verifyReceipt"];
+    }
+    // 验证服务器需要的凭证数据
+    NSDictionary *requestContents = @{@"receipt-data": receipt};
+    NSError *error;
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestContents options:NSJSONWritingPrettyPrinted error:&error];
+    if (!requestData) {
+        NSLog(@"%@", error);
+        return;
+    }
+    // 开启全局异步线程来请求
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableURLRequest *storeRequest = [NSMutableURLRequest requestWithURL:storeURL];
+        [storeRequest setHTTPMethod:@"POST"];
+        [storeRequest setHTTPBody:requestData];
+        NSURLSessionDataTask *dataTask = [[NSURLSession sharedSession] dataTaskWithRequest:storeRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (error) {
+                }else {
+                    NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                    if (responseDic) {
+                        NSLog(@"%@", responseDic);
+                    }
+                }
+            });
+        }];
+        [dataTask resume];
+    });
 }
 
 #pragma mark - 交易失败
 - (void)failedTransaction:(SKPaymentTransaction *)transaction
 {
-    if (transaction.error.code != SKErrorPaymentCancelled)
-    {
-        [self handleActionWithType:SIAPPurchFailed data:nil];
-    }else{
-        [self handleActionWithType:SIAPPurchCancle data:nil];
+    switch (transaction.error.code) {
+        case SKErrorPaymentCancelled:
+            [self handleActionWithType:PaymentCancel data:nil];
+            break;
+        default:
+            [self handleActionWithType:PaymentFailed data:nil];
+            break;
     }
     //移除支付队列
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
@@ -202,42 +239,33 @@
 - (void)handleActionWithType:(SIAPPurchType)type data:(NSString *)data{
     NSString *resultStr;
     switch (type) {
-        case SIAPPurchSuccess:
-            resultStr = @"购买成功";
+        case PaymentCancel:
+            resultStr = @"Payment Cancel";
             break;
-        case SIAPPurchFailed:
-            resultStr = @"购买失败";
+        case PaymentSuccess:
+            resultStr = @"Payment Success";
             break;
-        case SIAPPurchCancle:
-            resultStr = @"用户取消购买";
+        case PaymentFailed:
+            resultStr = @"Payment Failed";
             break;
-        case SIAPPurchNoProduct:
-            resultStr = @"获取商品信息失败";
+        case PaymentNoProduct:
+            resultStr = @"Payment No Product";
             break;
-        case SIAPPurchProductIdError:
-            resultStr = @"商品ID错误";
+        case PaymentProductIdError:
+            resultStr = @"Payment Product Id Error";
             break;
-        case SIAPPurchNotArrow:
-            resultStr = @"不允许程序内付费";
-            break;
-        case SIAPPurchVerFailed:
-            resultStr = @"订单校验失败";
-            break;
-        case SIAPPurchVerSuccess:
-            resultStr = @"订单校验成功";
+        case PaymentNotAllowed:
+            resultStr = @"Payment Not Allowed";
             break;
         default:
             break;
     }
     
-    [[TJAlert sharedAlert] showAlertViewWithTitle:@"支付提示" message:resultStr actionText:@[@"确定"] resultAction:^(NSString *actionTitle) {
-    }];
-    
     if(self.appleBlock){
         if (data == nil) {
             data = @"NULL";
         }
-        self.appleBlock(@{@"code":[NSString stringWithFormat:@"%d",type],@"message":resultStr,@"data":data});
+        self.appleBlock(@{@"code":[NSNumber numberWithInt:type],@"message":resultStr,@"data":data});
     }
 }
 

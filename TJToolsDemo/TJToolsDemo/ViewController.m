@@ -158,7 +158,7 @@
         });
     }
     if (indexPath.row == 7) {
-        [[TJAppleZF shareIPA] appleZFWithProductID:@"10001" resultBlock:^(NSDictionary * _Nonnull resultDic) {
+        [[TJAppleZF shareIPA] appleZFWithProductID:@"10001" completionHandler:^(NSDictionary * _Nonnull resultDic) {
             NSLog(@"%@",resultDic);
         }];
     }
