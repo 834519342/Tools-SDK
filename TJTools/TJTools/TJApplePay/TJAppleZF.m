@@ -171,7 +171,7 @@
     if ([transaction.payment.productIdentifier length] > 0) {
         // 购买凭证
 //        NSString *receipt = [transaction.transactionReceipt base64Encoding];
-        NSString *receipt = [receiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+        NSString *receipt = [receiptData base64EncodedStringWithOptions:0];
 //        [self verifyReceipt:receipt];
         [self handleActionWithType:PaymentSuccess data:receipt];
     }
@@ -196,7 +196,7 @@
     // 验证服务器需要的凭证数据
     NSDictionary *requestContents = @{@"receipt-data": receipt};
     NSError *error;
-    NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestContents options:NSJSONWritingPrettyPrinted error:&error];
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestContents options:0 error:&error];
     if (!requestData) {
         NSLog(@"%@", error);
         return;
@@ -210,7 +210,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (error) {
                 }else {
-                    NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                    NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
                     if (responseDic) {
                         NSLog(@"%@", responseDic);
                     }
