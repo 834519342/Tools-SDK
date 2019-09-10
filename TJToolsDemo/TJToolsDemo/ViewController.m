@@ -158,7 +158,12 @@
         });
     }
     if (indexPath.row == 7) {
-        [[TJAppleZF shareIPA] appleZFWithProductID:@"10001" completionHandler:^(NSDictionary * _Nonnull resultDic) {
+        OrderInfo *orderInfo = [[OrderInfo alloc] init];
+        orderInfo.productIDs = @[@"recharge_6"];
+        //    orderInfo.productIDs = @[@"recharge_6", @"recharge_12", @"recharge_30", @"recharge_68", @"recharge_128", @"recharge_328", @"recharge_648", @"shop1_14"];
+        orderInfo.orderID = @"54618913546876168";
+        orderInfo.shareSecret = @"f450802e3bf040ada450e42a7cf3916c";
+        [[TJAppleZF shareInstance] appleZFWithProductID:orderInfo completionHandler:^(NSDictionary * _Nonnull resultDic) {
             NSLog(@"%@",resultDic);
         }];
     }

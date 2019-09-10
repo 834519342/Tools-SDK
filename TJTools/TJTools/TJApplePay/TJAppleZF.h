@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "OrderInfo.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,9 +24,20 @@ typedef void(^AppleZFBlock)(NSDictionary *resultDic);
 
 @interface TJAppleZF : NSObject
 
-+ (instancetype)shareIPA;
+/**
+ 单例
 
-- (void)appleZFWithProductID:(NSString *)productID completionHandler:(AppleZFBlock)appleZFBlock;
+ @return 实例
+ */
++ (instancetype)shareInstance;
+
+/**
+ 支付
+
+ @param orderInfo 商品信息
+ @param appleZFBlock 结果回调
+ */
+- (void)appleZFWithProductID:(OrderInfo *)orderInfo completionHandler:(AppleZFBlock)appleZFBlock;
 
 @end
 

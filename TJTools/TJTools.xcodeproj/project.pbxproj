@@ -36,6 +36,8 @@
 		30D34817218AF28C00705FCC /* TJToolTip.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D34815218AF28C00705FCC /* TJToolTip.m */; };
 		30E9C1D22241EB7A00CFDB1A /* TJ_RSA.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E9C1D02241EB7A00CFDB1A /* TJ_RSA.m */; };
 		30E9C1D32241EB7A00CFDB1A /* TJ_RSA.h in Headers */ = {isa = PBXBuildFile; fileRef = 30E9C1D12241EB7A00CFDB1A /* TJ_RSA.h */; };
+		5916EE2123277FF7001DFAE6 /* OrderInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 5916EE1F23277FF7001DFAE6 /* OrderInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5916EE2223277FF7001DFAE6 /* OrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5916EE2023277FF7001DFAE6 /* OrderInfo.m */; };
 		5923647523013FA60060C208 /* TJKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = 5923647323013FA60060C208 /* TJKeychain.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5923647623013FA60060C208 /* TJKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 5923647423013FA60060C208 /* TJKeychain.m */; };
 		592364A1230170C20060C208 /* TJDeviceInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 5923649F230170C20060C208 /* TJDeviceInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -80,6 +82,8 @@
 		30D34815218AF28C00705FCC /* TJToolTip.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJToolTip.m; sourceTree = "<group>"; };
 		30E9C1D02241EB7A00CFDB1A /* TJ_RSA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJ_RSA.m; sourceTree = "<group>"; };
 		30E9C1D12241EB7A00CFDB1A /* TJ_RSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJ_RSA.h; sourceTree = "<group>"; };
+		5916EE1F23277FF7001DFAE6 /* OrderInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderInfo.h; sourceTree = "<group>"; };
+		5916EE2023277FF7001DFAE6 /* OrderInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderInfo.m; sourceTree = "<group>"; };
 		5923647323013FA60060C208 /* TJKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJKeychain.h; sourceTree = "<group>"; };
 		5923647423013FA60060C208 /* TJKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJKeychain.m; sourceTree = "<group>"; };
 		5923649F230170C20060C208 /* TJDeviceInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJDeviceInfo.h; sourceTree = "<group>"; };
@@ -220,6 +224,8 @@
 			children = (
 				30AD36E9219183C80037DF49 /* TJAppleZF.h */,
 				30AD36EA219183C80037DF49 /* TJAppleZF.m */,
+				5916EE1F23277FF7001DFAE6 /* OrderInfo.h */,
+				5916EE2023277FF7001DFAE6 /* OrderInfo.m */,
 			);
 			path = TJApplePay;
 			sourceTree = "<group>";
@@ -278,6 +284,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5916EE2123277FF7001DFAE6 /* OrderInfo.h in Headers */,
 				59D6CD77230A4D9D003F6CC4 /* TJDefine.h in Headers */,
 				592364C823028A6D0060C208 /* TJLocation.h in Headers */,
 				592364A1230170C20060C208 /* TJDeviceInfo.h in Headers */,
@@ -373,6 +380,7 @@
 			files = (
 				30AB3C0F21886C05006E0B80 /* TJVersion.m in Sources */,
 				592364A2230170C20060C208 /* TJDeviceInfo.m in Sources */,
+				5916EE2223277FF7001DFAE6 /* OrderInfo.m in Sources */,
 				3035D629218C4A1A005796EF /* TJNotificationModel.m in Sources */,
 				30E9C1D22241EB7A00CFDB1A /* TJ_RSA.m in Sources */,
 				592364A9230192A70060C208 /* Reachability.m in Sources */,
