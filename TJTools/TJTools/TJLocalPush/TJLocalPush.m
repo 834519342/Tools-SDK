@@ -7,7 +7,6 @@
 //
 
 #import "TJLocalPush.h"
-#import "TJNotificationModel.h"
 
 @implementation TJLocalPush
 

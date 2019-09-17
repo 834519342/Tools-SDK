@@ -40,11 +40,4 @@
  */
 - (UIAlertController *)showActionSheetViewWithTitle:(NSString *)title message:(NSString *)message actionText:(NSArray<NSString *> *)actions resultAction:(void(^)(NSString *actionTitle))actionBlock;
 
-/**
- 获取顶部试图
- 
- @return VC
- */
-- (UIViewController *)getCurrentVC;
-
 @end

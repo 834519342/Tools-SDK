@@ -7,6 +7,7 @@
 //
 
 #import "TJCrash.h"
+#import "TJAccess.h"
 
 #define CrashLog @"CrashLog"
 #define DevelopEmail @"775124946@qq.com"
@@ -85,8 +86,8 @@ void UncaughtExceptionHandler(NSException *exception) {
         //邮件正文
         [mailCompose setMessageBody:[self getCrashLog] isHTML:NO];
         //弹出邮箱界面
-        if ([[TJAlert sharedAlert] getCurrentVC]) {
-            [[[TJAlert sharedAlert] getCurrentVC] presentViewController:mailCompose animated:YES completion:nil];
+        if ([TJAccess getCurrentVC]) {
+            [[TJAccess getCurrentVC] presentViewController:mailCompose animated:YES completion:nil];
         }
     }
 }
@@ -110,7 +111,7 @@ void UncaughtExceptionHandler(NSException *exception) {
         default:
             break;
     }
-    [[[TJAlert sharedAlert] getCurrentVC] dismissViewControllerAnimated:YES completion:^{
+    [[TJAccess getCurrentVC] dismissViewControllerAnimated:YES completion:^{
         NSLog(@"提示一次之后清除崩溃日志");
         [self saveCrashLog:nil];
     }];

@@ -7,6 +7,7 @@
 //
 
 #import "TJAlert.h"
+#import "TJAccess.h"
 
 @implementation TJAlert
 
@@ -32,8 +33,8 @@
         [alert addAction:action];
     }
     //弹出
-    if ([self getCurrentVC]) {
-        [[self getCurrentVC] presentViewController:alert animated:YES completion:nil];
+    if ([TJAccess getCurrentVC]) {
+        [[TJAccess getCurrentVC] presentViewController:alert animated:YES completion:nil];
     }
     return alert;
 }
@@ -51,37 +52,10 @@
         [alert addAction:action];
     }
     //弹出
-    if ([self getCurrentVC]) {
-        [[self getCurrentVC] presentViewController:alert animated:YES completion:nil];
+    if ([TJAccess getCurrentVC]) {
+        [[TJAccess getCurrentVC] presentViewController:alert animated:YES completion:nil];
     }
     return alert;
-}
-
-- (UIViewController *)getCurrentVC
-{
-    UIViewController *result = nil;
-    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
-    if (window.windowLevel != UIWindowLevelNormal){
-        NSArray *windows = [[UIApplication sharedApplication] windows];
-        for(UIWindow * tmpWin in windows){
-            if (tmpWin.windowLevel == UIWindowLevelNormal){
-                window = tmpWin;
-                break;
-            }
-        }
-    }
-    UIView *frontView = [[window subviews] objectAtIndex:0];
-    id nextResponder = [frontView nextResponder];
-    if ([nextResponder isKindOfClass:[UIViewController class]])
-        result = nextResponder;
-    else
-        result = window.rootViewController;
-    
-    if (result) {
-        return result;
-    }else {
-        return [[[UIApplication sharedApplication].windows lastObject] rootViewController];
-    }
 }
 
 @end

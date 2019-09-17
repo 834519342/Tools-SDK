@@ -26,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.arr = @[@"TJVersion",@"TJCrash",@"TJAlert",@"TJNSString",@"TJToolTip",@"iOS10Push",@"showActivity",@"TJAppleZF",@"TJKeychain",@"TJDeviceInfo",@"TJLocation"];
+    self.arr = @[@"TJVersion",@"TJCrash",@"TJAlert",@"TJNSString",@"TJToolTip",@"iOS10Push",@"showActivity",@"TJAppleZF",@"TJKeychain",@"TJDeviceInfo",@"TJLocation",@"TJAppleCode"];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.delegate = self;
@@ -188,6 +188,28 @@
 //        }];
         [[TJLocation shareInstance] requestLocation:^(NSDictionary * _Nonnull resultDic) {
             NSLog(@"%@", resultDic);
+        }];
+    }
+    if (indexPath.row == 11) {
+        [[TJAlert sharedAlert] showActionSheetViewWithTitle:@"TJAppleCode" message:@"选择使用功能" actionText:@[@"下载页", @"评价页", @"分享", @"粘贴板"] resultAction:^(NSString *actionTitle) {
+            if ([actionTitle isEqualToString:@"下载页"]) {
+                [[TJAppleCode shareInstance] openInStoreProductViewControllerForAppId:@"454638411"];
+            }else if ([actionTitle isEqualToString:@"评价页"]) {
+                ReviewModel *model = [[ReviewModel alloc] init];
+                model.type = FiveStar;
+                [TJAppleCode openReview:model completionHandler:^(NSDictionary * _Nonnull resultDic) {
+                    NSLog(@"%@", resultDic);
+                }];
+            }else if ([actionTitle isEqualToString:@"分享"]) {
+                ShareModel *model = [[ShareModel alloc] init];
+                model.shareType = ShareLink;
+                model.URL = @"https://www.baidu.com";
+                [TJAppleCode systemShareWithModel:model withViewController:self completionHandler:^(NSDictionary * _Nonnull resultDic) {
+                    NSLog(@"%@", resultDic);
+                }];
+            }else if ([actionTitle isEqualToString:@"粘贴板"]) {
+                [TJAppleCode CopyStrToPasteboard:@"粘贴板测试内容"];
+            }
         }];
     }
     

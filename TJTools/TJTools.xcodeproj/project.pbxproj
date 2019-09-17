@@ -47,6 +47,12 @@
 		592364AB230192A70060C208 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 592364A8230192A70060C208 /* Reachability.h */; };
 		592364C823028A6D0060C208 /* TJLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 592364C623028A6D0060C208 /* TJLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		592364C923028A6D0060C208 /* TJLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 592364C723028A6D0060C208 /* TJLocation.m */; };
+		59D0C24323307FBD00F33EAD /* TJAppleCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 59D0C23F23307FBC00F33EAD /* TJAppleCode.m */; };
+		59D0C24423307FBD00F33EAD /* ReviewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 59D0C24023307FBC00F33EAD /* ReviewModel.m */; };
+		59D0C24523307FBD00F33EAD /* ReviewModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 59D0C24123307FBC00F33EAD /* ReviewModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		59D0C24623307FBD00F33EAD /* TJAppleCode.h in Headers */ = {isa = PBXBuildFile; fileRef = 59D0C24223307FBC00F33EAD /* TJAppleCode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		59D0C249233080BB00F33EAD /* ShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 59D0C247233080BB00F33EAD /* ShareModel.m */; };
+		59D0C24A233080BB00F33EAD /* ShareModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 59D0C248233080BB00F33EAD /* ShareModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		59D6CD77230A4D9D003F6CC4 /* TJDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = 59D6CD76230A4D9D003F6CC4 /* TJDefine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
@@ -93,6 +99,12 @@
 		592364A8230192A70060C208 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		592364C623028A6D0060C208 /* TJLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJLocation.h; sourceTree = "<group>"; };
 		592364C723028A6D0060C208 /* TJLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJLocation.m; sourceTree = "<group>"; };
+		59D0C23F23307FBC00F33EAD /* TJAppleCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJAppleCode.m; sourceTree = "<group>"; };
+		59D0C24023307FBC00F33EAD /* ReviewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewModel.m; sourceTree = "<group>"; };
+		59D0C24123307FBC00F33EAD /* ReviewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewModel.h; sourceTree = "<group>"; };
+		59D0C24223307FBC00F33EAD /* TJAppleCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJAppleCode.h; sourceTree = "<group>"; };
+		59D0C247233080BB00F33EAD /* ShareModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareModel.m; sourceTree = "<group>"; };
+		59D0C248233080BB00F33EAD /* ShareModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareModel.h; sourceTree = "<group>"; };
 		59D6CD76230A4D9D003F6CC4 /* TJDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJDefine.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -187,6 +199,7 @@
 		30AB3BB021885FF0006E0B80 /* TJTools */ = {
 			isa = PBXGroup;
 			children = (
+				59D0C23E23307FBC00F33EAD /* TJAppleCode */,
 				592364C5230289F70060C208 /* TJLocation */,
 				5923649E230170AF0060C208 /* TJDeviceInfo */,
 				5923647223013FA60060C208 /* TJKeychain */,
@@ -277,6 +290,19 @@
 			path = TJLocation;
 			sourceTree = "<group>";
 		};
+		59D0C23E23307FBC00F33EAD /* TJAppleCode */ = {
+			isa = PBXGroup;
+			children = (
+				59D0C24223307FBC00F33EAD /* TJAppleCode.h */,
+				59D0C23F23307FBC00F33EAD /* TJAppleCode.m */,
+				59D0C24123307FBC00F33EAD /* ReviewModel.h */,
+				59D0C24023307FBC00F33EAD /* ReviewModel.m */,
+				59D0C248233080BB00F33EAD /* ShareModel.h */,
+				59D0C247233080BB00F33EAD /* ShareModel.m */,
+			);
+			path = TJAppleCode;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -284,6 +310,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59D0C24523307FBD00F33EAD /* ReviewModel.h in Headers */,
+				59D0C24A233080BB00F33EAD /* ShareModel.h in Headers */,
+				59D0C24623307FBD00F33EAD /* TJAppleCode.h in Headers */,
 				5916EE2123277FF7001DFAE6 /* OrderInfo.h in Headers */,
 				59D6CD77230A4D9D003F6CC4 /* TJDefine.h in Headers */,
 				592364C823028A6D0060C208 /* TJLocation.h in Headers */,
@@ -379,10 +408,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				30AB3C0F21886C05006E0B80 /* TJVersion.m in Sources */,
+				59D0C24323307FBD00F33EAD /* TJAppleCode.m in Sources */,
 				592364A2230170C20060C208 /* TJDeviceInfo.m in Sources */,
+				59D0C249233080BB00F33EAD /* ShareModel.m in Sources */,
 				5916EE2223277FF7001DFAE6 /* OrderInfo.m in Sources */,
 				3035D629218C4A1A005796EF /* TJNotificationModel.m in Sources */,
 				30E9C1D22241EB7A00CFDB1A /* TJ_RSA.m in Sources */,
+				59D0C24423307FBD00F33EAD /* ReviewModel.m in Sources */,
 				592364A9230192A70060C208 /* Reachability.m in Sources */,
 				3035D625218C4A0F005796EF /* TJLocalPush.m in Sources */,
 				3005FBC922165C780082BA50 /* TJAccess.m in Sources */,
