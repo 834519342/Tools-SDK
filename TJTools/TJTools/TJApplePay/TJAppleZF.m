@@ -65,26 +65,35 @@
     }
 }
 
-// 获取当前账号区域价格：￥6.00
-- (NSString *)getCurrencyStyle:(SKProduct *)product
+//// 获取当前账号区域价格：￥6.00
+//- (NSString *)getCurrencyStyle:(SKProduct *)product
+//{
+//    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+//    [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+//    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+//    [numberFormatter setLocale:product.priceLocale];
+//    NSString *formattedString = [numberFormatter stringFromNumber:product.price];
+//    return formattedString;
+//}
+//
+//// 获取当前账号区域价格: CNY6.00
+//- (NSString *)getCurrencyISOCodeStyle:(SKProduct *)product
+//{
+//    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+//    [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+//    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyISOCodeStyle];
+//    [numberFormatter setLocale:product.priceLocale];
+//    NSString *formattedString = [numberFormatter stringFromNumber:product.price];
+//    return formattedString;
+//}
+
+// 获取货币格式信息
+- (NSNumberFormatter *)getNumberFormatter:(SKProduct *)product
 {
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
     [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     [numberFormatter setLocale:product.priceLocale];
-    NSString *formattedString = [numberFormatter stringFromNumber:product.price];
-    return formattedString;
-}
-
-// 获取当前账号区域价格: CNY6.00
-- (NSString *)getCurrencyISOCodeStyle:(SKProduct *)product
-{
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyISOCodeStyle];
-    [numberFormatter setLocale:product.priceLocale];
-    NSString *formattedString = [numberFormatter stringFromNumber:product.price];
-    return formattedString;
+    return numberFormatter;
 }
 
 #pragma mark - SKProductsRequestDelegate
@@ -119,7 +128,7 @@
         NSLog(@"%@",p.productIdentifier);
         NSLog(@"%@",p.localizedTitle);
         NSLog(@"%@",p.localizedDescription);
-        NSLog(@"%@",[self getCurrencyStyle:p]);
+        NSLog(@"%@%@", [self getNumberFormatter:p].currencySymbol, p.price);
         NSLog(@"发送购买请求");
         NSLog(@"*********************************");
         [self.ZFInfo setValue:p.localizedTitle forKey:@"productName"];    //回传 商品名字
@@ -128,8 +137,8 @@
         // 获取商品价格表
         NSMutableDictionary *productInfoDic = [NSMutableDictionary dictionary];
         for (SKProduct *product in products) {
-            NSDictionary *dic = @{@"currency": [self getCurrencyStyle:product],
-                                  @"ISOCode": [[self getCurrencyISOCodeStyle:product] stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%.2f", [product.price floatValue]] withString:@""],
+            NSDictionary *dic = @{@"currency": [NSString stringWithFormat:@"%@%@", [self getNumberFormatter:product].currencySymbol, product.price],
+                                  @"ISOCode": [self getNumberFormatter:product].internationalCurrencySymbol,
                                   @"priceNum": product.price,
                                   };
             [productInfoDic setValue:dic forKey:product.productIdentifier];
