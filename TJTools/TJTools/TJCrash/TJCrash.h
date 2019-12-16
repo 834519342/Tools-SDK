@@ -8,27 +8,29 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import <MessageUI/MessageUI.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@protocol TJCrashDelegate <NSObject>
+
+/// 崩溃监听回调
+/// @param crashLogs 所有的崩溃缓存
+- (void)monitorCrashLogs:(NSArray *)crashLogs;
+
+@end
 
 @interface TJCrash : NSObject
 
-/**
- 激活崩溃监控功能
- 
- @return 监控单例
- */
-+ (instancetype)sharedCrash;
+/// 实例化
++ (instancetype)sharedInstance;
 
-/**
- 获取存储本地的崩溃信息
- 
- @return 崩溃信息
- */
-- (NSString *)getCrashLog;
+/// 开始监听
+- (void)startWithDelegate:(id<TJCrashDelegate>)delegate;
 
-/**
- 发送崩溃信息到开发者邮箱
- */
-- (void)sendCrashInfoToEMail;
+/// 清除已处理过的崩溃缓存
+/// @param crashLogDic 单个崩溃日志
+- (void)cleanCrashLog:(NSDictionary *)crashLogDic;
 
 @end
+
+NS_ASSUME_NONNULL_END

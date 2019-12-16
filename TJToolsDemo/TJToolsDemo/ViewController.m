@@ -12,7 +12,7 @@
 #import "ViewController.h"
 #import <TJTools/TJTools.h>
 
-@interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource,TJCrashDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -33,7 +33,7 @@
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     //崩溃信息
-//    [[TJCrash sharedCrash] sendCrashInfoToEMail];
+    [[TJCrash sharedInstance] startWithDelegate:self];
 
     TJLog(@"%@", @"测试啊");
 }
@@ -215,5 +215,16 @@
     
 }
 
+#pragma mark CrashDelegate
+- (void)monitorCrashLogs:(NSArray *)crashLogs
+{
+    // 崩溃日志处理逻辑
+    for (NSDictionary *dic in crashLogs) {
+        NSLog(@"=======崩溃日志=======:%@", dic);
+        // 上传日志
+        // 删除日志缓存
+        [[TJCrash sharedInstance] cleanCrashLog:dic];
+    }
+}
 
 @end
