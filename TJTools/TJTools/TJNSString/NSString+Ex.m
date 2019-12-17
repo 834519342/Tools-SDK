@@ -247,13 +247,14 @@
     [formatter setTimeZone:timeZone];
     
     NSDate *dateNow = [NSDate date];
-    NSString *timeSp = [NSString stringWithFormat:@"%ld",(long)[dateNow timeIntervalSince1970]];
-    NSLog(@"现在时间戳:%@",timeSp);
-//    NSLog(@"现在时间戳:%ld",time(NULL));
     
     NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[dateNow timeIntervalSince1970]];
     NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
     NSLog(@"时间戳转时间:%@",confromTimespStr);
+    
+    NSString *timeSp = [NSString stringWithFormat:@"%ld",(long)[dateNow timeIntervalSince1970]];
+        NSLog(@"现在时间戳:%@",timeSp);
+    //    NSLog(@"现在时间戳:%ld",time(NULL));
     
     return timeSp;
 }

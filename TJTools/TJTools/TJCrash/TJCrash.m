@@ -47,7 +47,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     [crashLogDic setValue:[exception reason] forKey:@"crash_reason"];
     [crashLogDic setValue:[exception callStackSymbols] forKey:@"crash_stackSymbols"];
     [crashLogDic setValue:@"1.0" forKey:@"sdk_ver"];
-    [crashLogDic setValue:[[TJCrash sharedInstance] getNowTimeTimestampWithFormatter:nil] forKey:@"timestamp"];
+    [crashLogDic setValue:[NSString stringWithFormat:@"%ld", time(NULL)] forKey:@"timestamp"];
     [crashLogs addObject:crashLogDic];
     // 缓存崩溃信息
     [[TJCrash sharedInstance] saveCrashLogs:crashLogs];
@@ -110,39 +110,6 @@ void UncaughtExceptionHandler(NSException *exception) {
         @"system_version": system_version,
     };
     return appInfo;
-}
-
-// 获取当前时间戳
-- (NSString *)getNowTimeTimestampWithFormatter:(NSString *)formatterStr
-{
-    //时间格式
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    if (formatterStr) {
-        //自定义格式
-        [formatter setDateFormat:formatterStr];
-    }else {
-        //设置日期系统格式
-        [formatter setDateStyle:NSDateFormatterMediumStyle];
-        //设置时间系统格式
-        [formatter setTimeStyle:NSDateFormatterShortStyle];
-    }
-    //设置已知时区
-//    NSLog(@"%@",[NSTimeZone knownTimeZoneNames]); //打印所有已知时区
-//    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"Pacific/Pago_Pago"];
-    //设置本地时区
-    NSTimeZone *timeZone = [NSTimeZone localTimeZone];
-    [formatter setTimeZone:timeZone];
-    
-    NSDate *dateNow = [NSDate date];
-    NSString *timeSp = [NSString stringWithFormat:@"%ld",(long)[dateNow timeIntervalSince1970]];
-    NSLog(@"现在时间戳:%@",timeSp);
-//    NSLog(@"现在时间戳:%ld",time(NULL));
-    
-    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[dateNow timeIntervalSince1970]];
-    NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
-    NSLog(@"时间戳转时间:%@",confromTimespStr);
-    
-    return timeSp;
 }
 
 @end
