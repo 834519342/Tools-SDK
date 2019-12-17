@@ -101,6 +101,17 @@
         str1 = [str TJ_RSAEncryptWithPublicKey:public_Key];
         NSLog(@"RSA:str = %@, str1 = %@", [str1 TJ_RSADecryptWithPrivateKey:private_Key], str1);
         
+        str1 = [str TJ_RSASignWithPrivate:private_Key];
+        NSLog(@"RSA_Sign:str1 = %@", str1);
+        if (str1) {
+            BOOL status = [str TJ_RSAVerifyWithSignatrue:str1 PublicKey:public_Key];
+            if (status) {
+                NSLog(@"RSA_Verify:验签成功");
+            }else {
+                NSLog(@"RSA_Verify:验签失败");
+            }
+        }
+        
         [NSString getCurrentTimesWithFormatter:nil];
         [NSString getNowTimeTimestampWithFormatter:nil];
     }

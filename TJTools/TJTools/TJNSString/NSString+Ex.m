@@ -203,12 +203,22 @@
 
 - (NSString *)TJ_RSAEncryptWithPublicKey:(NSString *)publicKey
 {
-    return [[TJ_RSA new] RSA_EncryptString:self publickey:publicKey];
+    return [[TJ_RSA sharedInstance] RSA_EncryptString:self publickey:publicKey];
 }
 
 - (NSString *)TJ_RSADecryptWithPrivateKey:(NSString *)privateKey
 {
-    return [[TJ_RSA new] RSA_DecryptString:self privateKey:privateKey];
+    return [[TJ_RSA sharedInstance] RSA_DecryptString:self privateKey:privateKey];
+}
+
+- (NSString *)TJ_RSASignWithPrivate:(NSString *)privateKey
+{
+    return [[TJ_RSA sharedInstance] RSA_Sign:self withPrivate:privateKey];
+}
+
+- (BOOL)TJ_RSAVerifyWithSignatrue:(NSString *)signStr PublicKey:(NSString *)publicKey
+{
+    return [[TJ_RSA sharedInstance] RSA_Verify:self Signatrue:signStr withPublicKey:publicKey];
 }
 
 + (NSString *)getCurrentTimesWithFormatter:(NSString *)formatterStr

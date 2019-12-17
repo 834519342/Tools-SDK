@@ -43,11 +43,11 @@ void UncaughtExceptionHandler(NSException *exception) {
     
     NSMutableArray *crashLogs = [NSMutableArray arrayWithArray:[[TJCrash sharedInstance] getCrashLogs]];  // 缓存多个崩溃日志
     NSMutableDictionary *crashLogDic = [NSMutableDictionary dictionaryWithDictionary:[[TJCrash sharedInstance] getAppInfo]];
-    [crashLogDic setValue:[exception name] forKey:@"crash_name"];
-    [crashLogDic setValue:[exception reason] forKey:@"crash_reason"];
-    [crashLogDic setValue:[exception callStackSymbols] forKey:@"crash_stackSymbols"];
+    [crashLogDic setValue:[exception name] forKey:@"crash_name"]; // 崩溃类型
+    [crashLogDic setValue:[exception reason] forKey:@"crash_reason"]; // 崩溃说明
+    [crashLogDic setValue:[exception callStackSymbols] forKey:@"crash_stackSymbols"]; // 崩溃堆栈信息
     [crashLogDic setValue:@"1.0" forKey:@"sdk_ver"];
-    [crashLogDic setValue:[NSString stringWithFormat:@"%ld", time(NULL)] forKey:@"timestamp"];
+    [crashLogDic setValue:[NSString stringWithFormat:@"%ld", time(NULL)] forKey:@"timestamp"]; // 时间戳
     [crashLogs addObject:crashLogDic];
     // 缓存崩溃信息
     [[TJCrash sharedInstance] saveCrashLogs:crashLogs];

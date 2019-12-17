@@ -7,13 +7,16 @@
 //
 
 #import "TJ_RSA.h"
+#import <CommonCrypto/CommonCrypto.h>   // SHA
 
 // base64编码
 static NSString *base64_encode_data(NSData *data){
     data = [data base64EncodedDataWithOptions:0];
     NSString *ret = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     return ret;
+//    return [data base64EncodedStringWithOptions:0];
 }
+
 // base64解码
 static NSData *base64_decode(NSString *str){
     NSData *data = [[NSData alloc] initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];
@@ -21,26 +24,16 @@ static NSData *base64_decode(NSString *str){
 }
 
 @implementation TJ_RSA
-
-- (NSString *)RSA_EncryptString:(NSString *)str publickey:(NSString *)pubKey
+static id manager = nil;
++ (instancetype)sharedInstance
 {
-    NSData *data = [self encryptData:[str dataUsingEncoding:NSUTF8StringEncoding] publicKey:pubKey];
-    NSString *ret = base64_encode_data(data);
-    return ret;
+    if (manager == nil) {
+        manager = [[TJ_RSA alloc] init];
+    }
+    return manager;
 }
 
-- (NSData *)encryptData:(NSData *)data publicKey:(NSString *)pubKey
-{
-    if (!data || !pubKey) {
-        return nil;
-    }
-    SecKeyRef keyRef = [self addPublicKey:pubKey];
-    if (!keyRef) {
-        return nil;
-    }
-    return [self encryptData:data withKeyRef:keyRef];
-}
-
+// --------------------- RSA加密 -------------------------
 - (SecKeyRef)addPublicKey:(NSString *)key
 {
     NSRange spos = [key rangeOfString:@"-----BEGIN PUBLIC KEY-----"];
@@ -127,6 +120,25 @@ static NSData *base64_decode(NSString *str){
     return([NSData dataWithBytes:&c_key[idx] length:len - idx]);
 }
 
+- (NSString *)RSA_EncryptString:(NSString *)str publickey:(NSString *)pubKey
+{
+    NSData *data = [self encryptData:[str dataUsingEncoding:NSUTF8StringEncoding] publicKey:pubKey];
+    NSString *ret = base64_encode_data(data);
+    return ret;
+}
+
+- (NSData *)encryptData:(NSData *)data publicKey:(NSString *)pubKey
+{
+    if (!data || !pubKey) {
+        return nil;
+    }
+    SecKeyRef keyRef = [self addPublicKey:pubKey];
+    if (!keyRef) {
+        return nil;
+    }
+    return [self encryptData:data withKeyRef:keyRef];
+}
+
 - (NSData *)encryptData:(NSData *)data withKeyRef:(SecKeyRef)keyRef
 {
     const uint8_t *srcbuf = (const uint8_t *)[data bytes];
@@ -158,33 +170,10 @@ static NSData *base64_decode(NSString *str){
     
     free(outbuf);
     CFRelease(keyRef);
-
     return ret;
 }
 
-
-
-- (NSString *)RSA_DecryptString:(NSString *)str privateKey:(NSString *)privKey
-{
-    if(!str) return nil;
-    NSData *data = [[NSData alloc] initWithBase64EncodedString:str options:0];
-    data = [self decryptData:data privateKey:privKey];
-    NSString *ret = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    return ret;
-}
-
-- (NSData *)decryptData:(NSData *)data privateKey:(NSString *)privKey
-{
-    if (!data || !privKey) {
-        return nil;
-    }
-    SecKeyRef keyRef = [self addPrivateKey:privKey];
-    if (!keyRef) {
-        return nil;
-    }
-    return [self decryptData:data withKeyRef:keyRef];
-}
-
+// ----------------------- RSA解密 ------------------------
 - (SecKeyRef)addPrivateKey:(NSString *)key
 {
     NSRange spos = [key rangeOfString:@"-----BEGIN PRIVATE KEY-----"];
@@ -281,6 +270,27 @@ static NSData *base64_decode(NSString *str){
     return [d_key subdataWithRange:NSMakeRange(idx, c_len)];
 }
 
+- (NSString *)RSA_DecryptString:(NSString *)str privateKey:(NSString *)privKey
+{
+    if(!str) return nil;
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:str options:0];
+    data = [self decryptData:data privateKey:privKey];
+    NSString *ret = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return ret;
+}
+
+- (NSData *)decryptData:(NSData *)data privateKey:(NSString *)privKey
+{
+    if (!data || !privKey) {
+        return nil;
+    }
+    SecKeyRef keyRef = [self addPrivateKey:privKey];
+    if (!keyRef) {
+        return nil;
+    }
+    return [self decryptData:data withKeyRef:keyRef];
+}
+
 - (NSData *)decryptData:(NSData *)data withKeyRef:(SecKeyRef)keyRef
 {
     const uint8_t *srcbuf = (const uint8_t *)[data bytes];
@@ -326,6 +336,63 @@ static NSData *base64_decode(NSString *str){
     free(outbuf);
     CFRelease(keyRef);
     return ret;
+}
+
+// ---------------------- RSA加签+验签 -----------------------
+// SHA算法
+- (NSData *)SHA_256:(NSString *)str
+{
+    const void *data = [str cStringUsingEncoding:NSUTF8StringEncoding];
+    CC_LONG len = (CC_LONG)strlen(data);
+    uint8_t *md = malloc(CC_SHA256_DIGEST_LENGTH * sizeof(uint8_t));
+    CC_SHA256(data, len, md);
+    return [NSData dataWithBytes:md length:CC_SHA256_DIGEST_LENGTH];
+}
+
+//签名
+- (NSString *)RSA_Sign:(NSString *)originStr withPrivate:(NSString *)privateKey
+{
+    SecKeyRef privateKeyRef = [self addPrivateKey:privateKey]; // 私钥对象
+    if (!privateKeyRef)
+    {
+        NSLog(@"add private key error.");
+        return nil;
+    }
+    NSData *originData = [self SHA_256:originStr];  // 获取原始数据的哈希值
+    unsigned char *sig = (unsigned char *)malloc(256);
+    size_t sig_len;
+    //签名
+    OSStatus status = SecKeyRawSign(privateKeyRef, kSecPaddingPKCS1SHA256, originData.bytes, originData.length, sig, &sig_len);
+    if (status != noErr) {
+        NSLog(@"sign error:%d", (int)status);
+        return nil;
+    }
+    NSData *outdata = [NSData dataWithBytes:sig length:sig_len];
+    return base64_encode_data(outdata);
+}
+
+// 验签
+- (BOOL)RSA_Verify:(NSString *)originStr Signatrue:(NSString *)signStr withPublicKey:(NSString *)publicKey
+{
+    SecKeyRef publicKeyRef = [self addPublicKey:publicKey]; // 公钥对象
+    if (!publicKeyRef) {
+        NSLog(@"add public key error.");
+        return NO;
+    }
+    NSData *originData = [self SHA_256:originStr];  // 获取原始数据哈希值
+    NSData *signData = [[NSData alloc] initWithBase64EncodedString:signStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    if (!originData || !signData) {
+        NSLog(@"data is nil.");
+        return NO;
+    }
+    // 验签
+    OSStatus status = SecKeyRawVerify(publicKeyRef, kSecPaddingPKCS1SHA256, originData.bytes, originData.length, signData.bytes, signData.length);
+    if (status == noErr) {
+        return YES;
+    }else {
+        NSLog(@"verify sign error:%d", (int)status);
+        return NO;
+    }
 }
 
 @end

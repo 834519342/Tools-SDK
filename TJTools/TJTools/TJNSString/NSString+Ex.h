@@ -95,6 +95,15 @@
  */
 - (NSString *)TJ_RSADecryptWithPrivateKey:(NSString *)privateKey;
 
+/// 签名
+/// @param privateKey 私钥
+- (NSString *)TJ_RSASignWithPrivate:(NSString *)privateKey;
+
+/// 验签
+/// @param signStr 签名
+/// @param publicKey 公钥
+- (BOOL)TJ_RSAVerifyWithSignatrue:(NSString *)signStr PublicKey:(NSString *)publicKey;
+
 /**
  获取当前时间
  @param formatterStr 自定义时间格式,为空则使用系统格式
