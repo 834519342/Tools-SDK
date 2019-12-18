@@ -29,9 +29,12 @@ static id manager = nil;
     return manager;
 }
 
+static NSUncaughtExceptionHandler *previousHandler;
 - (void)startWithDelegate:(id<TJCrashDelegate>)delegate
 {
     self.delegate = delegate;
+    // 获取之前的监听方法
+    previousHandler = NSGetUncaughtExceptionHandler();
     // 注册监听方法
     NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     // 回传缓存中的崩溃信息
@@ -53,6 +56,10 @@ void UncaughtExceptionHandler(NSException *exception) {
     [[TJCrash sharedInstance] saveCrashLogs:crashLogs];
     // 返回崩溃信息
     [[TJCrash sharedInstance].delegate monitorCrashLogs:crashLogs];
+    // 给之前的监听方法抛出异常
+    if (previousHandler) {
+        previousHandler(exception);
+    }
 }
 
 // 存储崩溃信息到本地
