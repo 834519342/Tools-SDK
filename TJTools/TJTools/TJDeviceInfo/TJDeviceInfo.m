@@ -30,23 +30,21 @@ static TJDeviceInfo *deviceManager;
     return deviceManager;
 }
 
-- (void)getDeviceInfoDic:(void (^)(NSDictionary * _Nonnull))result
+- (NSDictionary *)getDeviceInfoDic
 {
-    if (result) {
-        result(@{
-                 @"DeviceType": [self getDeviceType],
-                 @"SystemVersion": [self getSystemVersion],
-                 @"UDID": [self getUDID],
-                 @"IDFA": [self getIDFA],
-                 @"NetWorkType": [self getNetWorkType],
-                 @"System": @"iOS",
-                 @"Channel": @"App Store",
-                 @"BundleName": [self getBundleName],
-                 @"NetWorkOperator": [self getNetworkOperator],
-                 @"SDKVersion": @"1.0.0",
-                 @"JailBreak": [self isJailBreak]
-                 });
-    }
+    return @{
+             @"DeviceType": [self getDeviceType],
+             @"SystemVersion": [self getSystemVersion],
+             @"UDID": [self getUDID],
+             @"IDFA": [self getIDFA],
+             @"NetWorkType": [self getNetWorkType],
+             @"System": @"iOS",
+             @"Channel": @"App Store",
+             @"BundleName": [self getBundleName],
+             @"NetWorkOperator": [self getNetworkOperator],
+             @"SDKVersion": @"1.0.0",
+             @"JailBreak": [self isJailBreak],
+    };
 }
 
 - (NSString *)getDeviceType
@@ -133,7 +131,7 @@ static TJDeviceInfo *deviceManager;
     if ([deviceString isEqualToString:@"iPad11,1"] || [deviceString isEqualToString:@"iPad11,2"])
         return @"iPad mini (5th generation)";
     
-    return deviceString;
+    return deviceString ? deviceString : @"";
 }
 
 - (NSString *)getSystemVersion
@@ -153,7 +151,7 @@ static TJDeviceInfo *deviceManager;
         udid = [NSString stringWithFormat:@"%@", [UIDevice currentDevice].identifierForVendor.UUIDString];
         [TJKeychain setValue:udid forKey:@"UDID" forAccessGroup:[[NSBundle mainBundle] bundleIdentifier]];
     }
-    return udid;
+    return udid ? udid : @"";
 }
 
 - (NSString *)getIDFA
@@ -209,13 +207,14 @@ static TJDeviceInfo *deviceManager;
         default:
             break;
     }
-    return networkType;
+    return networkType ? networkType : @"";
 }
 
 - (NSString *)getBundleName
 {
     NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
-    return [info valueForKey:(NSString *)kCFBundleNameKey];
+    NSString *bundleName = [info valueForKey:(NSString *)kCFBundleNameKey];
+    return bundleName ? bundleName : @"";
 }
 
 - (NSString *)getNetworkOperator
@@ -230,7 +229,7 @@ static TJDeviceInfo *deviceManager;
     
     //isp = mcc + mnc
     NSString *name = [carrier carrierName];
-    return name;
+    return name ? name : @"";
 }
 
 - (NSString *)isJailBreak
@@ -242,9 +241,9 @@ static TJDeviceInfo *deviceManager;
     //根据是否能获取所有应用的名称判断 没有越狱的设备是没有读取所有应用名称的权限的
     status2 = [[NSFileManager defaultManager] fileExistsAtPath:@"User/Applications/"];
     if (status1 || status2) {  //如果有一只方式判定为设备越狱了那么设备就越狱了不接受任何反驳
-        return  @"越狱";
+        return  @"Root";
     }else{
-        return  @"非越狱";
+        return  @"NotRoot";
     }
 }
 

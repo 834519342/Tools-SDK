@@ -188,9 +188,7 @@
         NSLog(@"%@", [TJKeychain valueForKey:@"save_key"]);
     }
     if (indexPath.row == 9) {
-        [[TJDeviceInfo shareInstance] getDeviceInfoDic:^(NSDictionary * _Nonnull resultDic) {
-            NSLog(@"%@", resultDic);
-        }];
+        NSLog(@"%@", [[TJDeviceInfo shareInstance] getDeviceInfoDic]);
     }
     if (indexPath.row == 10) {
 //        [[TJLocation shareInstance] startUpdatingLocation:^(NSDictionary * _Nonnull locationInfo) {

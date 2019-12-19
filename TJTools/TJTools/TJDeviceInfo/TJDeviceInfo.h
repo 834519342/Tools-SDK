@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param result 字典
  */
-- (void)getDeviceInfoDic:(void(^)(NSDictionary *resultDic))result;
+- (NSDictionary *)getDeviceInfoDic;
 
 /**
  获取设备机型
