@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 崩溃监听回调
 /// @param crashLogs 所有的崩溃缓存
-- (void)monitorCrashLogs:(NSArray *)crashLogs;
+- (void)monitorCrashLogs:(NSArray <NSDictionary *> *)crashLogs;
 
 @end
 

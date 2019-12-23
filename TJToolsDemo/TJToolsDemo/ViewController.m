@@ -225,7 +225,7 @@
 }
 
 #pragma mark CrashDelegate
-- (void)monitorCrashLogs:(NSArray *)crashLogs
+- (void)monitorCrashLogs:(NSArray <NSDictionary *> *)crashLogs
 {
     // 崩溃日志处理逻辑
     for (NSDictionary *dic in crashLogs) {
