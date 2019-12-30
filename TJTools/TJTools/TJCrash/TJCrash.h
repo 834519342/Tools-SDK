@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 崩溃监听回调
 /// @param crashLogs 所有的崩溃缓存
-- (void)monitorCrashLogs:(NSArray <NSDictionary *> *)crashLogs;
+- (void)TJMonitorCrashLogs:(NSArray <NSDictionary *> *)crashLogs;
 
 @end
 
@@ -25,11 +25,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)sharedInstance;
 
 /// 开始监听
-- (void)startWithDelegate:(id<TJCrashDelegate>)delegate;
+- (void)TJStartWithDelegate:(id<TJCrashDelegate>)delegate;
 
 /// 清除已处理过的崩溃缓存
 /// @param crashLogDic 单个崩溃日志
-- (void)cleanCrashLog:(NSDictionary *)crashLogDic;
+- (void)TJCleanCrashLog:(NSDictionary *)crashLogDic;
 
 @end
 

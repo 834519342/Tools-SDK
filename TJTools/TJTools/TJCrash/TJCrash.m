@@ -30,7 +30,7 @@ static id manager = nil;
 }
 
 static NSUncaughtExceptionHandler *previousHandler;
-- (void)startWithDelegate:(id<TJCrashDelegate>)delegate
+- (void)TJStartWithDelegate:(id<TJCrashDelegate>)delegate
 {
     self.delegate = delegate;
     // 获取之前的监听方法
@@ -38,7 +38,7 @@ static NSUncaughtExceptionHandler *previousHandler;
     // 注册监听方法
     NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     // 回传缓存中的崩溃信息
-    [self.delegate monitorCrashLogs:[self getCrashLogs]];
+    [self.delegate TJMonitorCrashLogs:[self getCrashLogs]];
 }
 
 // 监听崩溃日志
@@ -55,7 +55,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     // 缓存崩溃信息
     [[TJCrash sharedInstance] saveCrashLogs:crashLogs];
     // 返回崩溃信息
-    [[TJCrash sharedInstance].delegate monitorCrashLogs:crashLogs];
+    [[TJCrash sharedInstance].delegate TJMonitorCrashLogs:crashLogs];
     // 给之前的监听方法抛出异常
     if (previousHandler) {
         previousHandler(exception);
@@ -80,7 +80,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 }
 
 // 清理已处理的崩溃缓存
-- (void)cleanCrashLog:(NSDictionary *)crashLogDic
+- (void)TJCleanCrashLog:(NSDictionary *)crashLogDic
 {
     NSMutableArray *crashLogArr = [NSMutableArray arrayWithArray:[self getCrashLogs]];  // 缓存多个崩溃日志
     for (NSDictionary *dic in crashLogArr) {

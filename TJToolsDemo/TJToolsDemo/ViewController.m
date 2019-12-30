@@ -33,7 +33,7 @@
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     //崩溃信息
-    [[TJCrash sharedInstance] startWithDelegate:self];
+    [[TJCrash sharedInstance] TJStartWithDelegate:self];
 
     TJLog(@"%@", @"测试啊");
 }
@@ -225,14 +225,14 @@
 }
 
 #pragma mark CrashDelegate
-- (void)monitorCrashLogs:(NSArray <NSDictionary *> *)crashLogs
+- (void)TJMonitorCrashLogs:(NSArray <NSDictionary *> *)crashLogs
 {
     // 崩溃日志处理逻辑
     for (NSDictionary *dic in crashLogs) {
         NSLog(@"=======崩溃日志=======:%@", dic);
         // 上传日志
         // 删除日志缓存
-        [[TJCrash sharedInstance] cleanCrashLog:dic];
+        [[TJCrash sharedInstance] TJCleanCrashLog:dic];
     }
 }
 
