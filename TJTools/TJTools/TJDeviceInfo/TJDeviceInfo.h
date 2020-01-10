@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  把所有信息组合成一个字典返回
 
- @param result 字典
+ @return 字典
  */
 - (NSDictionary *)getDeviceInfoDic;
 
