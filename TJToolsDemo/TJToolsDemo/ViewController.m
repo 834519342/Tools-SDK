@@ -26,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.arr = @[@"TJVersion",@"TJCrash",@"TJAlert",@"TJNSString",@"TJToolTip",@"iOS10Push",@"showActivity",@"TJAppleZF",@"TJKeychain",@"TJDeviceInfo",@"TJLocation",@"TJAppleCode"];
+    self.arr = @[@"TJVersion",@"TJCrash",@"TJAlert",@"TJNSString",@"TJToolTip",@"iOS10Push",@"showActivity",@"TJAppleZF",@"TJKeychain",@"TJDeviceInfo",@"TJLocation",@"TJAppleCode",@"TJSandBoxPath"];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.delegate = self;
@@ -220,6 +220,9 @@
                 [TJAppleCode CopyStrToPasteboard:@"粘贴板测试内容"];
             }
         }];
+    }
+    if (indexPath.row == 12) {
+        NSLog(@"path = %@", [[TJSandBoxPath sharedInstance] getFilePathWithType:rand()%6]);
     }
     
 }

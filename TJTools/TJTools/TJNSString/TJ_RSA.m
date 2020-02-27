@@ -346,7 +346,9 @@ static id manager = nil;
     CC_LONG len = (CC_LONG)strlen(data);
     uint8_t *md = malloc(CC_SHA256_DIGEST_LENGTH * sizeof(uint8_t));
     CC_SHA256(data, len, md);
-    return [NSData dataWithBytes:md length:CC_SHA256_DIGEST_LENGTH];
+    NSData *resultData = [NSData dataWithBytes:md length:CC_SHA256_DIGEST_LENGTH];
+    free(md);
+    return resultData;
 }
 
 //签名
@@ -368,6 +370,7 @@ static id manager = nil;
         return nil;
     }
     NSData *outdata = [NSData dataWithBytes:sig length:sig_len];
+    free(sig);
     return base64_encode_data(outdata);
 }
 

@@ -32,6 +32,7 @@
 #import "TJDeviceInfo.h"    // 获取设备信息
 #import "TJLocation.h"  // 获取设备定位信息
 #import "TJAppleCode.h" // 苹果自带功能：App Store下载界面，应用评价功能(五星弹框,App Store评价页)，系统粘贴板
+#import "TJSandBoxPath.h"   // 系统文件路径管理
 
 //! Project version number for TJTools.
 FOUNDATION_EXPORT double TJToolsVersionNumber;
