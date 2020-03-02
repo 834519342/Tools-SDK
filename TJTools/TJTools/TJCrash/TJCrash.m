@@ -11,7 +11,7 @@
 
 #define CrashLog @"TJCrashLog"
 
-@interface TJCrash ()
+@interface TJCrash ()<NSCopying>
 
 // 代理委托
 @property (nonatomic, nullable, weak) id<TJCrashDelegate> delegate;
@@ -20,13 +20,26 @@
 
 @implementation TJCrash
 
-static id manager = nil;
 + (instancetype)sharedInstance
 {
-    if (manager == nil) {
-        manager = [[TJCrash alloc] init];
-    }
+    static id manager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (manager == nil) {
+            manager = [[super allocWithZone:NULL] init];
+        }
+    });
     return manager;
+}
+// 规避创建一个新的单例
++ (instancetype)allocWithZone:(struct _NSZone *)zone
+{
+    return [self sharedInstance];
+}
+// 规避创建一个新的单例
+- (id)copyWithZone:(NSZone *)zone
+{
+    return self;
 }
 
 static NSUncaughtExceptionHandler *previousHandler;

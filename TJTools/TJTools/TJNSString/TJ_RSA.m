@@ -23,14 +23,32 @@ static NSData *base64_decode(NSString *str){
     return data;
 }
 
+@interface TJ_RSA ()<NSCopying>
+
+@end
+
 @implementation TJ_RSA
-static id manager = nil;
+
 + (instancetype)sharedInstance
 {
-    if (manager == nil) {
-        manager = [[TJ_RSA alloc] init];
-    }
+    static id manager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (manager == nil) {
+            manager = [[super allocWithZone:NULL] init];
+        }
+    });
     return manager;
+}
+// 规避创建新的单例
++ (instancetype)allocWithZone:(struct _NSZone *)zone
+{
+    return [self sharedInstance];
+}
+// 规避创建新的单例
+- (id)copyWithZone:(NSZone *)zone
+{
+    return self;
 }
 
 // --------------------- RSA加密 -------------------------
