@@ -12,7 +12,7 @@
 #import "TJAppInfo.h"
 #import "TJVersionRequest.h"
 
-@interface TJVersion ()<SKStoreProductViewControllerDelegate>
+@interface TJVersion ()<SKStoreProductViewControllerDelegate, NSCopying>
 
 @property (nonatomic, strong) TJAppInfo *appInfo;
 
@@ -23,13 +23,13 @@
 //检测新版本(使用默认提示框)
 + (void)checkNewVersion {
     
-    [[TJVersion shardManger] checkNewVersion];
+    [[TJVersion shardInstance] checkNewVersion];
 }
 
 //检查新版本(自定义提醒)
 + (void)checkNewVersionAndCustomAlert:(NewVersionBlock)newVersion {
     
-    [[TJVersion shardManger] checkNewVersionAndCustomAlert:^(TJAppInfo *appInfo) {
+    [[TJVersion shardInstance] checkNewVersionAndCustomAlert:^(TJAppInfo *appInfo) {
         if (newVersion) {
             newVersion(appInfo);
         }
@@ -37,17 +37,26 @@
 }
 
 //创建一个单例
-+ (TJVersion *)shardManger {
-    
++ (instancetype)shardInstance
+{
     static TJVersion *instance = nil;
-    //只执行一次
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        
-        instance = [[TJVersion alloc] init];
-        
+        if (instance == nil) {
+            instance = [[super allocWithZone:NULL] init];
+        }
     });
     return instance;
+}
+//
++ (instancetype)allocWithZone:(struct _NSZone *)zone
+{
+    return [self shardInstance];
+}
+//
+- (id)copyWithZone:(NSZone *)zone
+{
+    return self;
 }
 
 //新版本信息提示,默认提示
@@ -101,7 +110,7 @@
 //在应用内打开下载页面
 + (void)openInStoreProductViewControllerForAppId:(NSString *)appId {
     
-    [[TJVersion shardManger] openInStoreProductViewControllerForAppId:appId];
+    [[TJVersion shardInstance] openInStoreProductViewControllerForAppId:appId];
 }
 
 /**

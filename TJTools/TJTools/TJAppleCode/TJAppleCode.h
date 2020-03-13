@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface TJAppleCode : NSObject
 
 // 单例
-+ (instancetype _Nonnull )shareInstance;
++ (instancetype _Nonnull )sharedInstance;
 
 /**
  打开下载界面

@@ -10,7 +10,7 @@
 #import <StoreKit/StoreKit.h>
 #import "TJToolTip.h"
 
-@interface TJAppleZF ()<SKPaymentTransactionObserver,SKProductsRequestDelegate>
+@interface TJAppleZF ()<SKPaymentTransactionObserver, SKProductsRequestDelegate, NSCopying>
 
 @property (nonatomic, copy) AppleZFBlock appleBlock;    //支付回调
 @property (nonatomic, strong) NSMutableDictionary *ZFInfo;  //支付信息
@@ -20,15 +20,28 @@
 
 @implementation TJAppleZF
 
-+ (instancetype)shareInstance
++ (instancetype)sharedInstance
 {
     static TJAppleZF *instance = nil;
-    if (instance == nil) {
-        instance = [[TJAppleZF alloc] init];
-        //购买监听写在程序入口,程序挂起时移除监听,这样如果有未完成的订单将会自动执行并回调 paymentQueue:updatedTransactions:方法
-        [[SKPaymentQueue defaultQueue] addTransactionObserver:instance];
-    }
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (instance == nil) {
+            instance = [[super allocWithZone:NULL] init];
+            //购买监听写在程序入口,程序挂起时移除监听,这样如果有未完成的订单将会自动执行并回调 paymentQueue:updatedTransactions:方法
+            [[SKPaymentQueue defaultQueue] addTransactionObserver:instance];
+        }
+    });
     return instance;
+}
+//
++ (instancetype)allocWithZone:(struct _NSZone *)zone
+{
+    return [self sharedInstance];
+}
+//
+- (id)copyWithZone:(NSZone *)zone
+{
+    return self;
 }
 
 - (NSMutableDictionary *)ZFInfo

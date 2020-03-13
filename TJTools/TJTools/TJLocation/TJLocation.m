@@ -11,7 +11,7 @@
 
 typedef void(^Callback)(NSDictionary * _Nonnull);
 
-@interface TJLocation ()<CLLocationManagerDelegate>
+@interface TJLocation ()<CLLocationManagerDelegate, NSCopying>
 
 @property (nonatomic, strong) CLLocationManager *locationManager;  //定位服务
 
@@ -19,16 +19,29 @@ typedef void(^Callback)(NSDictionary * _Nonnull);
 
 @end
 
-static TJLocation *instance;
 @implementation TJLocation
 
-+ (instancetype)shareInstance
++ (instancetype)sharedInstance
 {
-    if (instance == nil) {
-        instance = [[TJLocation alloc] init];
-        [instance initLocationManager];
-    }
+    static TJLocation *instance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (instance == nil) {
+            instance = [[super allocWithZone:NULL] init];
+            [instance initLocationManager];
+        }
+    });
     return instance;
+}
+// 规避创建新的单例
++ (instancetype)allocWithZone:(struct _NSZone *)zone
+{
+    return [self sharedInstance];
+}
+// 规避创建新的单例
+- (id)copyWithZone:(NSZone *)zone
+{
+    return self;
 }
 
 - (void)initLocationManager

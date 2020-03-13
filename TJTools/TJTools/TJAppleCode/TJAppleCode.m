@@ -10,19 +10,32 @@
 #import <StoreKit/StoreKit.h>
 #import "TJAccess.h"
 
-@interface TJAppleCode ()<SKStoreProductViewControllerDelegate>
+@interface TJAppleCode ()<SKStoreProductViewControllerDelegate, NSCopying>
 
 @end
 
 @implementation TJAppleCode
 
-+ (instancetype)shareInstance
++ (instancetype)sharedInstance
 {
     static TJAppleCode *instance = nil;
-    if (instance == nil) {
-        instance = [[TJAppleCode alloc] init];
-    }
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (instance == nil) {
+            instance = [[super allocWithZone:NULL] init];
+        }
+    });
     return instance;
+}
+// 规避创建新的单例
++ (instancetype)allocWithZone:(struct _NSZone *)zone
+{
+    return [self sharedInstance];
+}
+// 规避创建新的单例
+- (id)copyWithZone:(NSZone *)zone
+{
+    return self;
 }
 
 // 打开App Store

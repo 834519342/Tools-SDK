@@ -36,6 +36,13 @@
     [[TJCrash sharedInstance] TJStartWithDelegate:self];
 
     TJLog(@"%@", @"测试啊");
+    
+    // 判断arc模式
+    #if __has_feature(objc_arc)
+    NSLog(@"ARC");
+    #else
+    NSLog(@"MRC");
+    #endif
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -71,11 +78,11 @@
     }
     if (indexPath.row == 2) {
         if (rand()%2) {
-            [[TJAlert sharedAlert] showAlertViewWithTitle:@"TJAlert" message:@"测试" actionText:@[@"按钮1",@"按钮2",@"按钮3"] resultAction:^(NSString *actionTitle) {
+            [[TJAlert sharedInstance] showAlertViewWithTitle:@"TJAlert" message:@"测试" actionText:@[@"按钮1",@"按钮2",@"按钮3"] resultAction:^(NSString *actionTitle) {
                 NSLog(@"点击%@",actionTitle);
             }];
         }else {
-            [[TJAlert sharedAlert] showActionSheetViewWithTitle:@"TJActionSheet" message:@"测试" actionText:@[@"按钮1",@"按钮2",@"按钮3"]  resultAction:^(NSString *actionTitle) {
+            [[TJAlert sharedInstance] showActionSheetViewWithTitle:@"TJActionSheet" message:@"测试" actionText:@[@"按钮1",@"按钮2",@"按钮3"]  resultAction:^(NSString *actionTitle) {
                 NSLog(@"点击%@",actionTitle);
             }];
         }
@@ -174,7 +181,7 @@
         //    orderInfo.productIDs = @[@"recharge_6", @"recharge_12", @"recharge_30", @"recharge_68", @"recharge_128", @"recharge_328", @"recharge_648", @"shop1_14"];
         orderInfo.orderID = @"54618913546876168";
         orderInfo.shareSecret = @"f450802e3bf040ada450e42a7cf3916c";
-        [[TJAppleZF shareInstance] appleZFWithProductID:orderInfo completionHandler:^(NSDictionary * _Nonnull resultDic) {
+        [[TJAppleZF sharedInstance] appleZFWithProductID:orderInfo completionHandler:^(NSDictionary * _Nonnull resultDic) {
             NSLog(@"%@",resultDic);
         }];
     }
@@ -188,21 +195,21 @@
         NSLog(@"%@", [TJKeychain valueForKey:@"save_key"]);
     }
     if (indexPath.row == 9) {
-        NSLog(@"%@", [[TJDeviceInfo shareInstance] getDeviceInfoDic]);
+        NSLog(@"%@", [[TJDeviceInfo sharedInstance] getDeviceInfoDic]);
     }
     if (indexPath.row == 10) {
 //        [[TJLocation shareInstance] startUpdatingLocation:^(NSDictionary * _Nonnull locationInfo) {
 //            [[TJLocation shareInstance] stopUpdatingLocation];
 //            NSLog(@"%@", locationInfo);
 //        }];
-        [[TJLocation shareInstance] requestLocation:^(NSDictionary * _Nonnull resultDic) {
+        [[TJLocation sharedInstance] requestLocation:^(NSDictionary * _Nonnull resultDic) {
             NSLog(@"%@", resultDic);
         }];
     }
     if (indexPath.row == 11) {
-        [[TJAlert sharedAlert] showActionSheetViewWithTitle:@"TJAppleCode" message:@"选择使用功能" actionText:@[@"下载页", @"评价页", @"分享", @"粘贴板"] resultAction:^(NSString *actionTitle) {
+        [[TJAlert sharedInstance] showActionSheetViewWithTitle:@"TJAppleCode" message:@"选择使用功能" actionText:@[@"下载页", @"评价页", @"分享", @"粘贴板"] resultAction:^(NSString *actionTitle) {
             if ([actionTitle isEqualToString:@"下载页"]) {
-                [[TJAppleCode shareInstance] openInStoreProductViewControllerForAppId:@"454638411"];
+                [[TJAppleCode sharedInstance] openInStoreProductViewControllerForAppId:@"454638411"];
             }else if ([actionTitle isEqualToString:@"评价页"]) {
                 ReviewModel *model = [[ReviewModel alloc] init];
                 model.type = FiveStar;

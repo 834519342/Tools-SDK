@@ -16,7 +16,7 @@ typedef void(^NewVersionBlock)(TJAppInfo *appInfo);
 @interface TJVersion : NSObject
 
 //创建一个单例
-+ (TJVersion *)shardManger;
++ (instancetype)shardInstance;
 
 /**
  *  检测新版本(使用默认提示框)

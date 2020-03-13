@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return 实例
  */
-+ (instancetype)shareInstance;
++ (instancetype)sharedInstance;
 
 /**
  获取更新的位置信息

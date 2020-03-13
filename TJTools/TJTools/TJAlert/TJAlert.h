@@ -16,7 +16,7 @@
 
  @return Alert对象
  */
-+ (instancetype)sharedAlert;
++ (instancetype)sharedInstance;
 
 /**
  Alert居中弹出框

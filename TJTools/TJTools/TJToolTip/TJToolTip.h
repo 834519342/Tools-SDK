@@ -20,7 +20,7 @@ typedef void(^ClickToolTipBlock)(NSString *message);
 
  @return 管理者
  */
-+ (instancetype)sharedToolTip;
++ (instancetype)sharedInstance;
 
 /**
  显示加载器

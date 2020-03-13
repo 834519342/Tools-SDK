@@ -22,14 +22,14 @@
 
 + (instancetype)sharedInstance
 {
-    static id manager = nil;
+    static id instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        if (manager == nil) {
-            manager = [[super allocWithZone:NULL] init];
+        if (instance == nil) {
+            instance = [[super allocWithZone:NULL] init];
         }
     });
-    return manager;
+    return instance;
 }
 // 规避创建一个新的单例
 + (instancetype)allocWithZone:(struct _NSZone *)zone

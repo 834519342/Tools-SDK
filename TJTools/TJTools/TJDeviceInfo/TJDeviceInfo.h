@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return 实例
  */
-+ (instancetype)shareInstance;
++ (instancetype)sharedInstance;
 
 /**
  把所有信息组合成一个字典返回

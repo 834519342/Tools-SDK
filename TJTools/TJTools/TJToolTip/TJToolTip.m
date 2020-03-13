@@ -13,7 +13,7 @@
 //获取屏幕宽度
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width
 
-@interface TJToolTip ()
+@interface TJToolTip ()<NSCopying>
 
 //菊花
 @property (nonatomic, strong) UIActivityIndicatorView *activityView;
@@ -35,26 +35,39 @@
 
 @implementation TJToolTip
 
-+ (instancetype)sharedToolTip
++ (instancetype)sharedInstance
 {
     static TJToolTip *toolTip = nil;
-    if (toolTip == nil) {
-        toolTip = [[TJToolTip alloc] init];
-    }
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (toolTip == nil) {
+            toolTip = [[super allocWithZone:NULL] init];
+        }
+    });
     return toolTip;
+}
+//
++ (instancetype)allocWithZone:(struct _NSZone *)zone
+{
+    return [self sharedInstance];
+}
+//
+- (id)copyWithZone:(NSZone *)zone
+{
+    return self;
 }
 
 #pragma mark 显示加载器
 + (void)showActivity
 {
-    [[UIApplication sharedApplication].keyWindow addSubview:[TJToolTip sharedToolTip].activityBackView];
+    [[UIApplication sharedApplication].keyWindow addSubview:[TJToolTip sharedInstance].activityBackView];
 }
 
 + (void)hideActivity
 {
-    [[TJToolTip sharedToolTip].activityBackView removeFromSuperview];
-    [TJToolTip sharedToolTip].activityView = nil;
-    [TJToolTip sharedToolTip].activityBackView = nil;
+    [[TJToolTip sharedInstance].activityBackView removeFromSuperview];
+    [TJToolTip sharedInstance].activityView = nil;
+    [TJToolTip sharedInstance].activityBackView = nil;
 }
 
 // 加载器背景色
@@ -64,9 +77,9 @@
         _activityBackView = [[UIView alloc] initWithFrame:[UIApplication sharedApplication].keyWindow.bounds];
         _activityBackView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1];
         
-        [TJToolTip sharedToolTip].activityView.center = _activityBackView.center;
-        [_activityBackView addSubview:[TJToolTip sharedToolTip].activityView];
-        [[TJToolTip sharedToolTip].activityView startAnimating];
+        [TJToolTip sharedInstance].activityView.center = _activityBackView.center;
+        [_activityBackView addSubview:[TJToolTip sharedInstance].activityView];
+        [[TJToolTip sharedInstance].activityView startAnimating];
     }
     return _activityBackView;
 }

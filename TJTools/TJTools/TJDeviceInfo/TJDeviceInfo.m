@@ -15,19 +15,32 @@
 #import <CoreTelephony/CTCarrier.h>  // 获取网络运营商
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>  // 获取网络运营商
 
-@interface TJDeviceInfo ()
+@interface TJDeviceInfo ()<NSCopying>
 
 @end
 
-static TJDeviceInfo *deviceManager;
 @implementation TJDeviceInfo
 
-+ (instancetype)shareInstance
++ (instancetype)sharedInstance
 {
-    if (deviceManager == nil) {
-        deviceManager = [[TJDeviceInfo alloc] init];
-    }
+    static TJDeviceInfo *deviceManager;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (deviceManager == nil) {
+            deviceManager = [[super allocWithZone:NULL] init];
+        }
+    });
     return deviceManager;
+}
+//
++ (instancetype)allocWithZone:(struct _NSZone *)zone
+{
+    return [self sharedInstance];
+}
+//
+- (id)copyWithZone:(NSZone *)zone
+{
+    return self;
 }
 
 - (NSDictionary *)getDeviceInfoDic

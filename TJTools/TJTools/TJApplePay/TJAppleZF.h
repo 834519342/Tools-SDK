@@ -29,7 +29,7 @@ typedef void(^AppleZFBlock)(NSDictionary *resultDic);
 
  @return 实例
  */
-+ (instancetype)shareInstance;
++ (instancetype)sharedInstance;
 
 /**
  支付
