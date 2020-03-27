@@ -37,14 +37,4 @@ typedef void(^NewVersionBlock)(TJAppInfo *appInfo);
  */
 + (void)openInStoreProductViewControllerForAppId:(NSString *)appId;
 
-
-/**
- 判断是否有新版本
-
- @param newVersion 新版本号
- @param currentVersion 当前版本号
- @return 结果
- */
-- (BOOL)newVersion:(NSString *)newVersion moreThanCurrentVersion:(NSString *)currentVersion;
-
 @end
