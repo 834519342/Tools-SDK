@@ -2,8 +2,8 @@
 //  TJNotificationModel.m
 //  TJLocalPush
 //
-//  Created by 谭杰 on 2017/1/13.
-//  Copyright © 2017年 谭杰. All rights reserved.
+//  Created by TJ on 2017/1/13.
+//  Copyright © 2017年 TJ. All rights reserved.
 //
 
 #import "TJNotificationModel.h"

@@ -2,8 +2,8 @@
 //  TJVersionRequest.m
 //  TJVersion
 //
-//  Created by 谭杰 on 2016/12/14.
-//  Copyright © 2016年 谭杰. All rights reserved.
+//  Created by TJ on 2016/12/14.
+//  Copyright © 2016年 TJ. All rights reserved.
 //
 
 #import "TJVersionRequest.h"
