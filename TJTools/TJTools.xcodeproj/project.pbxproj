@@ -19,8 +19,8 @@
 		305C2F5A218AA36E0042CF8D /* TJAlert.h in Headers */ = {isa = PBXBuildFile; fileRef = 305C2F58218AA36E0042CF8D /* TJAlert.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		305C2F5B218AA36E0042CF8D /* TJAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 305C2F59218AA36E0042CF8D /* TJAlert.m */; };
 		305C2F60218AAB990042CF8D /* PrefixHeader.pch in Headers */ = {isa = PBXBuildFile; fileRef = 305C2F5F218AAB990042CF8D /* PrefixHeader.pch */; };
-		305C2F63218AABBC0042CF8D /* NSString+Ex.h in Headers */ = {isa = PBXBuildFile; fileRef = 305C2F61218AABBC0042CF8D /* NSString+Ex.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		305C2F64218AABBC0042CF8D /* NSString+Ex.m in Sources */ = {isa = PBXBuildFile; fileRef = 305C2F62218AABBC0042CF8D /* NSString+Ex.m */; };
+		305C2F63218AABBC0042CF8D /* NSString+Encrypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 305C2F61218AABBC0042CF8D /* NSString+Encrypt.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		305C2F64218AABBC0042CF8D /* NSString+Encrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 305C2F62218AABBC0042CF8D /* NSString+Encrypt.m */; };
 		306EE00A224214B90035E1CD /* privateKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = 306EE008224214B90035E1CD /* privateKey.txt */; };
 		306EE00B224214B90035E1CD /* publicKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = 306EE009224214B90035E1CD /* publicKey.txt */; };
 		30AB3BB321885FF0006E0B80 /* TJTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 30AB3BB121885FF0006E0B80 /* TJTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -71,8 +71,8 @@
 		305C2F58218AA36E0042CF8D /* TJAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJAlert.h; sourceTree = "<group>"; };
 		305C2F59218AA36E0042CF8D /* TJAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJAlert.m; sourceTree = "<group>"; };
 		305C2F5F218AAB990042CF8D /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		305C2F61218AABBC0042CF8D /* NSString+Ex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Ex.h"; sourceTree = "<group>"; };
-		305C2F62218AABBC0042CF8D /* NSString+Ex.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Ex.m"; sourceTree = "<group>"; };
+		305C2F61218AABBC0042CF8D /* NSString+Encrypt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Encrypt.h"; sourceTree = "<group>"; };
+		305C2F62218AABBC0042CF8D /* NSString+Encrypt.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Encrypt.m"; sourceTree = "<group>"; };
 		306EE008224214B90035E1CD /* privateKey.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = privateKey.txt; sourceTree = "<group>"; };
 		306EE009224214B90035E1CD /* publicKey.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = publicKey.txt; sourceTree = "<group>"; };
 		30AB3BAE21885FF0006E0B80 /* TJTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TJTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -170,17 +170,17 @@
 			path = TJAlert;
 			sourceTree = "<group>";
 		};
-		305C2F5C218AAB5A0042CF8D /* TJNSString */ = {
+		305C2F5C218AAB5A0042CF8D /* TJEncrypt */ = {
 			isa = PBXGroup;
 			children = (
-				305C2F61218AABBC0042CF8D /* NSString+Ex.h */,
-				305C2F62218AABBC0042CF8D /* NSString+Ex.m */,
+				305C2F61218AABBC0042CF8D /* NSString+Encrypt.h */,
+				305C2F62218AABBC0042CF8D /* NSString+Encrypt.m */,
 				30E9C1D12241EB7A00CFDB1A /* TJ_RSA.h */,
 				30E9C1D02241EB7A00CFDB1A /* TJ_RSA.m */,
 				306EE008224214B90035E1CD /* privateKey.txt */,
 				306EE009224214B90035E1CD /* publicKey.txt */,
 			);
-			path = TJNSString;
+			path = TJEncrypt;
 			sourceTree = "<group>";
 		};
 		30AB3BA421885FF0006E0B80 = {
@@ -212,7 +212,7 @@
 				30AD36E8219183AC0037DF49 /* TJApplePay */,
 				3035D621218C49F0005796EF /* TJLocalPush */,
 				30D34813218AF27500705FCC /* TJToolTip */,
-				305C2F5C218AAB5A0042CF8D /* TJNSString */,
+				305C2F5C218AAB5A0042CF8D /* TJEncrypt */,
 				305C2F57218AA3610042CF8D /* TJAlert */,
 				305C2F52218AA0070042CF8D /* TJCrash */,
 				30AB3C0521886C05006E0B80 /* TJVersion */,
@@ -337,7 +337,7 @@
 				30D34816218AF28C00705FCC /* TJToolTip.h in Headers */,
 				30AB3C0E21886C05006E0B80 /* TJVersion.h in Headers */,
 				3035D624218C4A0F005796EF /* TJLocalPush.h in Headers */,
-				305C2F63218AABBC0042CF8D /* NSString+Ex.h in Headers */,
+				305C2F63218AABBC0042CF8D /* NSString+Encrypt.h in Headers */,
 				3035D628218C4A1A005796EF /* TJNotificationModel.h in Headers */,
 				305C2F5A218AA36E0042CF8D /* TJAlert.h in Headers */,
 				30E9C1D32241EB7A00CFDB1A /* TJ_RSA.h in Headers */,
@@ -440,7 +440,7 @@
 				30AB3C0D21886C05006E0B80 /* TJAppInfo.m in Sources */,
 				30AB3C1121886C05006E0B80 /* TJVersionRequest.m in Sources */,
 				30D34817218AF28C00705FCC /* TJToolTip.m in Sources */,
-				305C2F64218AABBC0042CF8D /* NSString+Ex.m in Sources */,
+				305C2F64218AABBC0042CF8D /* NSString+Encrypt.m in Sources */,
 				592364C923028A6D0060C208 /* TJLocation.m in Sources */,
 				305C2F56218AA02E0042CF8D /* TJCrash.m in Sources */,
 			);

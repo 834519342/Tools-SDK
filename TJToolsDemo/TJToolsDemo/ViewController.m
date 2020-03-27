@@ -26,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.arr = @[@"TJVersion",@"TJCrash",@"TJAlert",@"TJNSString",@"TJToolTip",@"iOS10Push",@"showActivity",@"TJAppleZF",@"TJKeychain",@"TJDeviceInfo",@"TJLocation",@"TJAppleCode",@"TJSandBoxPath"];
+    self.arr = @[@"TJVersion",@"TJCrash",@"TJAlert",@"TJEncrypt",@"TJToolTip",@"iOS10Push",@"showActivity",@"TJAppleZF",@"TJKeychain",@"TJDeviceInfo",@"TJLocation",@"TJAppleCode",@"TJSandBoxPath"];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.delegate = self;
@@ -34,14 +34,12 @@
     [self.view addSubview:self.tableView];
     //崩溃信息
     [[TJCrash sharedInstance] TJStartWithDelegate:self];
-
-    TJLog(@"%@", @"测试啊");
     
     // 判断arc模式
     #if __has_feature(objc_arc)
-    NSLog(@"ARC");
+    TJLog(@"当前内存管理模式：%@", @"ARC");
     #else
-    NSLog(@"MRC");
+    TJLog(@"当前内存管理模式：%@", @"ARC");
     #endif
 }
 
@@ -89,9 +87,9 @@
     }
     if (indexPath.row == 3) {
         NSString *str = @"woshiyuanchuan";
-        NSString *str1 = [str TJ_StrConvertToHexStr];
+        NSString *str1 = [TJAccess TJ_StrConvertToHexStr:str];
         
-        NSLog(@"十六进制字符串: str = %@, str1 = %@",[str1 TJ_HexStrConvertToStr], str1);
+        NSLog(@"十六进制字符串: str = %@, str1 = %@",[TJAccess TJ_HexStrConvertToStr:str1], str1);
         
         str1 = [str TJ_Base64_encode];
         NSLog(@"base64: str = %@, str1 = %@", [str1 TJ_Base64_decode], str1);
@@ -119,8 +117,8 @@
             }
         }
         
-        [NSString getCurrentTimesWithFormatter:nil];
-        [NSString getNowTimeTimestampWithFormatter:nil];
+        [TJAccess getCurrentTimesWithFormatter:nil];
+        [TJAccess getNowTimeTimestampWithFormatter:nil];
     }
     if (indexPath.row == 4) {
         if (rand()%2) {

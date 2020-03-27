@@ -6,67 +6,14 @@
 //  Copyright © 2018年 TJ. All rights reserved.
 //
 
-#import "NSString+Ex.h"
+#import "NSString+Encrypt.h"
 #import <CommonCrypto/CommonCryptor.h>
 #import <CommonCrypto/CommonDigest.h>
 #import <CommonCrypto/CommonHMAC.h>
 
 #import "TJ_RSA.h"
 
-@implementation NSString (Ex)
-
-- (NSString *)TJ_HexStrConvertToStr
-{
-    if (!self || [self length] == 0) {
-        return nil;
-    }
-    
-    NSMutableData *hexData = [[NSMutableData alloc] initWithCapacity:8];
-    NSRange range;
-    if ([self length] % 2 == 0) {
-        range = NSMakeRange(0, 2);
-    } else {
-        range = NSMakeRange(0, 1);
-    }
-    for (NSInteger i = range.location; i < [self length]; i += 2) {
-        unsigned int anInt;
-        NSString *hexCharStr = [self substringWithRange:range];
-        NSScanner *scanner = [[NSScanner alloc] initWithString:hexCharStr];
-        
-        [scanner scanHexInt:&anInt];
-        NSData *entity = [[NSData alloc] initWithBytes:&anInt length:1];
-        [hexData appendData:entity];
-        
-        range.location += range.length;
-        range.length = 2;
-    }
-    NSString *string = [[NSString alloc]initWithData:hexData encoding:NSUTF8StringEncoding];
-    return string;
-}
-
-- (NSString *)TJ_StrConvertToHexStr
-{
-    if (!self || [self length] == 0) {
-        return nil;
-    }
-    NSData *hex_data = [self dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSMutableString *string = [[NSMutableString alloc] initWithCapacity:[hex_data length]];
-    
-    [hex_data enumerateByteRangesUsingBlock:^(const void *bytes, NSRange byteRange, BOOL *stop) {
-        unsigned char *dataBytes = (unsigned char*)bytes;
-        for (NSInteger i = 0; i < byteRange.length; i++) {
-            NSString *hexStr = [NSString stringWithFormat:@"%x", (dataBytes[i]) & 0xff];
-            if ([hexStr length] == 2) {
-                [string appendString:hexStr];
-            } else {
-                [string appendFormat:@"0%@", hexStr];
-            }
-        }
-    }];
-    
-    return string;
-}
+@implementation NSString (Encrypt)
 
 - (NSString *)TJ_Base64_encode
 {
@@ -219,54 +166,6 @@
 - (BOOL)TJ_RSAVerifyWithSignatrue:(NSString *)signStr PublicKey:(NSString *)publicKey
 {
     return [[TJ_RSA sharedInstance] RSA_Verify:self Signatrue:signStr withPublicKey:publicKey];
-}
-
-+ (NSString *)getCurrentTimesWithFormatter:(NSString *)formatterStr
-{
-    //时间格式
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    if (formatterStr) {
-        [formatter setDateFormat:formatterStr];
-    }else {
-        [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
-    }
-    NSDate *datenow = [NSDate date];
-    NSString *currentTimeString = [formatter stringFromDate:datenow];
-    NSLog(@"现在时间:%@",currentTimeString);
-    return currentTimeString;
-}
-
-+ (NSString *)getNowTimeTimestampWithFormatter:(NSString *)formatterStr
-{
-    //时间格式
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    if (formatterStr) {
-        //自定义格式
-        [formatter setDateFormat:formatterStr];
-    }else {
-        //设置日期系统格式
-        [formatter setDateStyle:NSDateFormatterMediumStyle];
-        //设置时间系统格式
-        [formatter setTimeStyle:NSDateFormatterShortStyle];
-    }
-    //设置已知时区
-//    NSLog(@"%@",[NSTimeZone knownTimeZoneNames]); //打印所有已知时区
-//    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"Pacific/Pago_Pago"];
-    //设置本地时区
-    NSTimeZone *timeZone = [NSTimeZone localTimeZone];
-    [formatter setTimeZone:timeZone];
-    
-    NSDate *dateNow = [NSDate date];
-    
-    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[dateNow timeIntervalSince1970]];
-    NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
-    NSLog(@"时间戳转时间:%@",confromTimespStr);
-    
-    NSString *timeSp = [NSString stringWithFormat:@"%ld",(long)[dateNow timeIntervalSince1970]];
-        NSLog(@"现在时间戳:%@",timeSp);
-    //    NSLog(@"现在时间戳:%ld",time(NULL));
-    
-    return timeSp;
 }
 
 @end
