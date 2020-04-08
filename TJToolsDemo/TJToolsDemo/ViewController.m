@@ -39,7 +39,7 @@
     #if __has_feature(objc_arc)
     TJLog(@"当前内存管理模式：%@", @"ARC");
     #else
-    TJLog(@"当前内存管理模式：%@", @"ARC");
+    TJLog(@"当前内存管理模式：%@", @"MRC");
     #endif
 }
 
